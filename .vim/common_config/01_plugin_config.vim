@@ -64,7 +64,12 @@
 
 " FZF
   NeoBundle "https://github.com/junegunn/fzf.vim.git"
-  nnoremap <Leader>t :<C-U>FZF<CR>
+  " use fzf if FZF present, else CtrlP
+    if !empty(glob("~/.fzf/bin/fzf"))
+      nnoremap <Leader>t :<C-U>FZF<CR>
+    else
+      nnoremap <Leader>t :<C-U>CtrlP<CR>
+    endif
 
 " Go
   NeoBundle "https://github.com/jnwhiteh/vim-golang.git"

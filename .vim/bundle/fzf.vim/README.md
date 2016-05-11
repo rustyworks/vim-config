@@ -41,6 +41,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 ```
 
+- `dir` option is not mandatory
 - Use `./install --bin` instead if you don't need fzf outside of Vim
 - Make sure to use Vim 7.4 or above
 
@@ -124,8 +125,11 @@ let g:fzf_colors =
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
-" [[B]Commits] to customize the options used by 'git log':
+" [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
 ```
 
 #### Advanced customization using autoload functions

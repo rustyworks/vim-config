@@ -106,6 +106,13 @@ let s:default_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+function! s:open(cmd, target)
+  if stridx('edit', a:cmd) == 0 && fnamemodify(a:target, ':p') ==# expand('%:p')
+    return
+  endif
+  execute a:cmd s:escape(a:target)
+endfunction
+
 function! s:common_sink(lines) abort
   if len(a:lines) < 2
     return
@@ -127,7 +134,7 @@ function! s:common_sink(lines) abort
         execute 'e' s:escape(item)
         let empty = 0
       else
-        execute cmd s:escape(item)
+        call s:open(cmd, item)
       endif
       if exists('#BufEnter') && isdirectory(item)
         doautocmd BufEnter
@@ -201,13 +208,13 @@ function! s:line_handler(lines)
   endif
   normal! m'
   let cmd = get(get(g:, 'fzf_action', s:default_action), a:lines[0], '')
-  if !empty(cmd)
+  if !empty(cmd) && stridx('edit', cmd) < 0
     execute 'silent' cmd
   endif
 
   let keys = split(a:lines[1], '\t')
   execute 'buffer' keys[0]
-  execute keys[1]
+  execute keys[2]
   normal! ^zz
 endfunction
 
@@ -215,26 +222,47 @@ function! fzf#vim#_lines(all)
   let cur = []
   let rest = []
   let buf = bufnr('')
+  let longest_name = 0
+  let display_bufnames = &columns > 100
+  if display_bufnames
+    let bufnames = {}
+    for b in s:buflisted()
+      let bufnames[b] = pathshorten(fnamemodify(bufname(b), ":~:."))
+      let longest_name = max([longest_name, len(bufnames[b])])
+    endfor
+  endif
+  let len_bufnames = min([15, longest_name])
   for b in s:buflisted()
     let lines = getbufline(b, 1, "$")
     if empty(lines)
       let path = fnamemodify(bufname(b), ':p')
       let lines = filereadable(path) ? readfile(path) : []
     endif
+    if display_bufnames
+      let bufname = bufnames[b]
+      if len(bufname) > len_bufnames + 1
+        let bufname = '…' . bufname[-(len_bufnames+1):]
+      endif
+      let bufname = printf(s:green("%".len_bufnames."s", "Directory"), bufname)
+    else
+      let bufname = ''
+    endif
     call extend(b == buf ? cur : rest,
     \ filter(
     \   map(lines,
-    \       '(!a:all && empty(v:val)) ? "" : printf(s:blue("%2d\t", "TabLine").s:yellow(" %4d ", "LineNr")."\t%s", b, v:key + 1, v:val)'),
+    \       '(!a:all && empty(v:val)) ? "" : printf(s:blue("%2d\t", "TabLine")."%s".s:yellow("\t%4d ", "LineNr")."\t%s", b, bufname, v:key + 1, v:val)'),
     \   'a:all || !empty(v:val)'))
   endfor
-  return extend(cur, rest)
+  return [display_bufnames, extend(cur, rest)]
 endfunction
 
 function! fzf#vim#lines(...)
+  let [display_bufnames, lines] = fzf#vim#_lines(1)
+  let nth = display_bufnames ? 3 : 2
   return s:fzf(fzf#vim#wrap({
-  \ 'source':  fzf#vim#_lines(1),
+  \ 'source':  lines,
   \ 'sink*':   s:function('s:line_handler'),
-  \ 'options': '+m --tiebreak=index --prompt "Lines> " --ansi --extended --nth=3.. --reverse --tabstop='.&tabstop
+  \ 'options': '+m --tiebreak=index --prompt "Lines> " --ansi --extended --nth='.nth.'.. --reverse --tabstop=1'
   \}), a:000)
 endfunction
 
@@ -264,7 +292,7 @@ function! fzf#vim#buffer_lines(...)
   return s:fzf(fzf#vim#wrap({
   \ 'source':  s:buffer_lines(),
   \ 'sink*':   s:function('s:buffer_line_handler'),
-  \ 'options': '+m --tiebreak=index --prompt "BLines> " --ansi --extended --nth=2.. --reverse --tabstop='.&tabstop
+  \ 'options': '+m --tiebreak=index --prompt "BLines> " --ansi --extended --nth=2.. --reverse --tabstop=1'
   \}), a:000)
 endfunction
 
@@ -474,7 +502,7 @@ function! s:ag_handler(lines)
 
   let first = list[0]
   try
-    execute cmd s:escape(first.filename)
+    call s:open(cmd, first.filename)
     execute first.lnum
     execute 'normal!' first.col.'|zz'
   catch
@@ -576,15 +604,15 @@ function! s:tags_sink(lines)
   normal! m'
   let qfl = []
   let cmd = get(get(g:, 'fzf_action', s:default_action), a:lines[0], 'e')
-  let [magic, &magic] = [&magic, 0]
+  let [magic, &magic, wrapscan, &wrapscan] = [&magic, 0, &wrapscan, 1]
   for line in a:lines[1:]
     let parts = split(line, '\t\zs')
     let excmd = matchstr(join(parts[2:], ''), '^.*\ze;"\t')
-    execute cmd s:escape(parts[1][:-2])
+    call s:open(cmd, parts[1][:-2])
     execute excmd
     call add(qfl, {'filename': expand('%'), 'lnum': line('.'), 'text': getline('.')})
   endfor
-  let &magic = magic
+  let [&magic, &wrapscan] = [magic, wrapscan]
   if len(qfl) > 1
     call setqflist(qfl)
     copen
@@ -604,7 +632,7 @@ function! fzf#vim#tags(query, ...)
     redraw
     if gen =~ '^y'
       call s:warn('Preparing tags')
-      call system('ctags -R')
+      call system(get(g:, 'fzf_tags_command', 'ctags -R'))
       if empty(tagfiles())
         return s:warn('Failed to create tags')
       endif

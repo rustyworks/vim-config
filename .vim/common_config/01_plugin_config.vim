@@ -54,13 +54,20 @@
 
 
 " CtrlP
-  NeoBundle "https://github.com/kien/ctrlp.vim.git"
+  NeoBundle "https://github.com/ctrlpvim/ctrlp.vim"
     nnoremap <Leader>b :<C-U>CtrlPBuffer<CR>
     " nnoremap <Leader>t :<C-U>CtrlP<CR>
     nnoremap <Leader>T :<C-U>CtrlPTag<CR>
 
-    " respect the .gitignore
-    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
+    let g:ctrlp_switch_buffer = 0
+    let g:ctrlp_working_path_mode = 0
+    if executable('ag')
+      let g:ctrlp_use_caching = 0
+      let g:ctrlp_user_command = 'ag %s -l -i --nocolor --nogroup -g ""'
+    else
+      " respect the .gitignore
+      let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
+    endif
 
 " FZF
   NeoBundle "https://github.com/junegunn/fzf.vim.git"

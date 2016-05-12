@@ -1,4 +1,4 @@
-set rtp+=~/.vim/bundle/neobundle.vim/
+set rtp+=~/.vim/bundle/Vundle.vim/
 set rtp+=~/.fzf
 
 runtime! custom_preconfig/*.vim

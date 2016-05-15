@@ -1,6 +1,9 @@
 set rtp+=~/.vim/bundle/Vundle.vim/
 set rtp+=~/.fzf
 
+" This userful if you use 'find' command
+set path+=**
+
 runtime! custom_preconfig/*.vim
 runtime! common_config/*.vim
 runtime! custom_config/*.vim

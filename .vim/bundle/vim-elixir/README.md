@@ -55,8 +55,14 @@ Copy the contents of each directory in the respective directories inside
 > update to a newer version.**
 
 [vim-plug]: https://github.com/junegunn/vim-plug
-[vundle]: https://github.com/gmarik/Vundle.vim
+[vundle]: https://github.com/VundleVim/Vundle.vim
 [neobundle]: https://github.com/Shougo/neobundle.vim
 [pathogen]: https://github.com/tpope/vim-pathogen
 [syntastic]: https://github.com/scrooloose/syntastic
 [syntastic-issue-fix]: https://github.com/scrooloose/syntastic/commit/1d19dff701524ebed90a4fbd7c7cd75ab954b79d
+
+## Development
+
+To run the tests you can run `bundle exec rspec`
+
+To spawn an interactive Vim instance with the configs from this repo use `bin/spawn_vim`

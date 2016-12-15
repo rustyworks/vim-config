@@ -17,6 +17,7 @@
   Bundle "vim-scripts/matchit.zip"
   Bundle "vim-scripts/ruby-matchit.git"
   Bundle "tpope/vim-abolish.git"
+  Bundle "terryma/vim-multiple-cursors"
   " Bundle "Valloric/YouCompleteMe"
 
  " Vim airline configs

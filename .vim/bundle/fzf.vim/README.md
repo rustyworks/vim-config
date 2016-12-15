@@ -41,38 +41,40 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 ```
 
-- `dir` option is not mandatory
+- `dir` and `do` options are not mandatory
 - Use `./install --bin` instead if you don't need fzf outside of Vim
+- If you installed fzf using Homebrew, the following should suffice:
+    - `Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'`
 - Make sure to use Vim 7.4 or above
 
 Commands
 --------
 
-| Command          | List                                                                      |
-| ---              | ---                                                                       |
-| `Files [PATH]`   | Files (similar to `:FZF`)                                                 |
-| `GitFiles`       | Git files (git ls-files)                                                  |
-| `GitFiles?`      | Git files (git status)                                                    |
-| `Buffers`        | Open buffers                                                              |
-| `Colors`         | Color schemes                                                             |
-| `Ag [PATTERN]`   | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all)   |
-| `Lines`          | Lines in loaded buffers                                                   |
-| `BLines`         | Lines in the current buffer                                               |
-| `Tags [QUERY]`   | Tags in the project (`ctags -R`)                                          |
-| `BTags [QUERY]`  | Tags in the current buffer                                                |
-| `Marks`          | Marks                                                                     |
-| `Windows`        | Windows                                                                   |
-| `Locate PATTERN` | `locate` command output                                                   |
-| `History`        | `v:oldfiles` and open buffers                                             |
-| `History:`       | Command history                                                           |
-| `History/`       | Search history                                                            |
-| `Snippets`       | Snippets ([UltiSnips][us])                                                |
-| `Commits`        | Git commits (requires [fugitive.vim][f])                                  |
-| `BCommits`       | Git commits for the current buffer                                        |
-| `Commands`       | Commands                                                                  |
-| `Maps`           | Normal mode mappings                                                      |
-| `Helptags`       | Help tags <sup id="a1">[1](#helptags)</sup>                               |
-| `Filetypes`      | File types
+| Command           | List                                                                    |
+| ---               | ---                                                                     |
+| `Files [PATH]`    | Files (similar to `:FZF`)                                               |
+| `GFiles [OPTS]`   | Git files (`git ls-files`)                                              |
+| `GFiles?`         | Git files (`git status`)                                                |
+| `Buffers`         | Open buffers                                                            |
+| `Colors`          | Color schemes                                                           |
+| `Ag [PATTERN]`    | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
+| `Lines [QUERY]`   | Lines in loaded buffers                                                 |
+| `BLines [QUERY]`  | Lines in the current buffer                                             |
+| `Tags [QUERY]`    | Tags in the project (`ctags -R`)                                        |
+| `BTags [QUERY]`   | Tags in the current buffer                                              |
+| `Marks`           | Marks                                                                   |
+| `Windows`         | Windows                                                                 |
+| `Locate PATTERN`  | `locate` command output                                                 |
+| `History`         | `v:oldfiles` and open buffers                                           |
+| `History:`        | Command history                                                         |
+| `History/`        | Search history                                                          |
+| `Snippets`        | Snippets ([UltiSnips][us])                                              |
+| `Commits`         | Git commits (requires [fugitive.vim][f])                                |
+| `BCommits`        | Git commits for the current buffer                                      |
+| `Commands`        | Commands                                                                |
+| `Maps`            | Normal mode mappings                                                    |
+| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
+| `Filetypes`       | File types
 
 - Most commands support `CTRL-T` / `CTRL-X` / `CTRL-V` key
   bindings to open in a new tab, a new split, or in a new vertical split
@@ -100,8 +102,11 @@ let g:fzf_action = {
 
 " Default fzf layout
 " - down / up / left / right
-" - window (nvim only)
 let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -117,11 +122,23 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 ```
 
 #### Command-local options
 
 ```vim
+" [Files] Extra options for fzf
+"   e.g. File preview using Highlight
+"        (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
@@ -130,15 +147,45 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 ```
 
-#### Advanced customization using autoload functions
+#### Advanced customization
 
 You can use autoload functions to define your own commands.
 
 ```vim
-autocmd VimEnter * command! Colors
-  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'})
+" Command for git grep
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+
+" We use VimEnter event so that the code is run after fzf.vim is loaded
+autocmd VimEnter * command! -bang Colors
+  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+" Augmenting Ag command using fzf#vim#with_preview function
+"   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
+"   * Preview script requires Ruby
+"   * Install Highlight or CodeRay to enable syntax highlighting
+"
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+autocmd VimEnter * command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 ```
 
 Mappings

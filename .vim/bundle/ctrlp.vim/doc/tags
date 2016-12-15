@@ -51,6 +51,7 @@
 'g:ctrlp_switch_buffer'	ctrlp.txt	/*'g:ctrlp_switch_buffer'*
 'g:ctrlp_tabpage_position'	ctrlp.txt	/*'g:ctrlp_tabpage_position'*
 'g:ctrlp_tilde_homedir'	ctrlp.txt	/*'g:ctrlp_tilde_homedir'*
+'g:ctrlp_types'	ctrlp.txt	/*'g:ctrlp_types'*
 'g:ctrlp_use_caching'	ctrlp.txt	/*'g:ctrlp_use_caching'*
 'g:ctrlp_user_command'	ctrlp.txt	/*'g:ctrlp_user_command'*
 'g:ctrlp_working_path_mode'	ctrlp.txt	/*'g:ctrlp_working_path_mode'*
@@ -65,6 +66,8 @@
 :CtrlPChangeAll	ctrlp.txt	/*:CtrlPChangeAll*
 :CtrlPClearAllCaches	ctrlp.txt	/*:CtrlPClearAllCaches*
 :CtrlPClearCache	ctrlp.txt	/*:CtrlPClearCache*
+:CtrlPCurFile	ctrlp.txt	/*:CtrlPCurFile*
+:CtrlPCurWD	ctrlp.txt	/*:CtrlPCurWD*
 :CtrlPDir	ctrlp.txt	/*:CtrlPDir*
 :CtrlPLastMode	ctrlp.txt	/*:CtrlPLastMode*
 :CtrlPLine	ctrlp.txt	/*:CtrlPLine*

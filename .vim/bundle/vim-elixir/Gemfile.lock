@@ -15,7 +15,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    vimrunner (0.3.2)
+    vimrunner (0.3.3)
 
 PLATFORMS
   ruby
@@ -28,4 +28,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

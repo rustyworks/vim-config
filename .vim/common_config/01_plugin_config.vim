@@ -181,9 +181,13 @@
 
 
 
-" gundo for awesome undo tree visualization
-  Bundle "sjl/gundo.vim.git"
-    map <Leader>h :GundoToggle<CR>
+" UndoTree
+  Bundle "mbbill/undotree.git"
+    map <Leader>h :UndotreeToggle<CR>
+    if has("persistent_undo")
+      set undodir=~/.undodir/
+      set undofile
+    endif
 
 
 " rails.vim, nuff' said

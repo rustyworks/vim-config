@@ -71,11 +71,12 @@
 " FZF
   Bundle "junegunn/fzf.vim.git"
   " use fzf if FZF present, else CtrlP
-    if executable("fzf")
-      nnoremap <Leader>t :<C-U>FZF<CR>
-    else
-      nnoremap <Leader>t :<C-U>CtrlP<CR>
-    endif
+    " if executable("fzf")
+    "   nnoremap <Leader>t :<C-U>FZF<CR>
+    " else
+    "   nnoremap <Leader>t :<C-U>CtrlP<CR>
+    " endif
+    nnoremap <Leader>t :<C-U>CtrlP<CR>
 
 " Go
   Bundle "jnwhiteh/vim-golang.git"

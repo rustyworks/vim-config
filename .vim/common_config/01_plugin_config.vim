@@ -187,7 +187,7 @@
     map <Leader>h :UndotreeToggle<CR>
     if has("persistent_undo")
       set undodir=~/.undodir/
-      set undofile
+      " set undofile
     endif
 
 

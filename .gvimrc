@@ -40,7 +40,7 @@
 " pretty but not terminal-compatible color scheme
 "  colorscheme solarized
 "  set background=light
-colorscheme monokai-soda
+colorscheme monokai
 
 runtime! custom_config/*.gvim
 

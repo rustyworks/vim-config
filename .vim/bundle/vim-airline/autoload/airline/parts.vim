@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2016 Bailey Ling.
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -65,7 +65,17 @@ function! airline#parts#paste()
 endfunction
 
 function! airline#parts#spell()
-  return g:airline_detect_spell && &spell ? g:airline_symbols.spell : ''
+  let spelllang = g:airline_detect_spelllang ? printf(" [%s]", toupper(substitute(&spelllang, ',', '/', 'g'))) : ''
+  if g:airline_detect_spell && &spell
+    if winwidth(0) >= 90
+      return g:airline_symbols.spell . spelllang
+    elseif winwidth(0) >= 70
+      return g:airline_symbols.spell
+    else
+      return split(g:airline_symbols.spell, '\zs')[0]
+    endif
+  endif
+  return ''
 endfunction
 
 function! airline#parts#iminsert()
@@ -76,7 +86,7 @@ function! airline#parts#iminsert()
 endfunction
 
 function! airline#parts#readonly()
-  if &readonly && &modifiable && !filereadable(bufname('%'))
+  if &readonly && !filereadable(bufname('%'))
     return '[noperm]'
   else
     return &readonly ? g:airline_symbols.readonly : ''
@@ -84,7 +94,7 @@ function! airline#parts#readonly()
 endfunction
 
 function! airline#parts#filetype()
-  return winwidth(0) < 100 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? '…' : '>') : &filetype
+  return winwidth(0) < 90 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? '…' : '>') : &filetype
 endfunction
 
 function! airline#parts#ffenc()

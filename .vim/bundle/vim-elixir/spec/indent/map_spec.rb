@@ -12,4 +12,38 @@ describe 'Map indent' do
     end)
     EOF
   end
+
+  i <<~EOF
+  x = %{
+    foo: :bar
+  }
+
+  y = :foo
+  EOF
+
+  i <<~EOF
+  x =
+    %{ foo: :bar }
+
+  y = :foo
+  EOF
+
+  i <<~EOF
+  x = %{
+    foo: :bar }
+
+  y = :foo
+  EOF
+
+  i <<~EOF
+  test "test" do
+    Mod.fun(fn ->
+      map = %Mod.Map{
+        id: "abc123",
+        state: "processing",
+        submod: %Mod.Submod{
+          options: %{}
+        }
+      }
+  EOF
 end

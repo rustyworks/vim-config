@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2016 Bailey Ling.
+" MIT License. Copyright (c) 2013-2018 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -49,7 +49,9 @@ function! s:prototype.build() dict
     let contents = section[1]
     let pgroup = prev_group
     let prev_group = s:get_prev_group(self._sections, i)
-    if group ==# 'airline_c' && !self._context.active && has_key(self._context, 'bufnr')
+    if group ==# 'airline_c' && &buftype ==# 'terminal' && self._context.active
+      let group = 'airline_term'
+    elseif group ==# 'airline_c' && !self._context.active && has_key(self._context, 'bufnr')
       let group = 'airline_c'. self._context.bufnr
     elseif prev_group ==# 'airline_c' && !self._context.active && has_key(self._context, 'bufnr')
       let prev_group = 'airline_c'. self._context.bufnr
@@ -116,9 +118,16 @@ endfunction
 function! s:get_transitioned_seperator(self, prev_group, group, side)
   let line = ''
   call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
-  let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
-  let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
-  let line .= '%#'.a:group.'#'
+  if get(a:self._context, 'tabline', 0) && get(g:, 'airline#extensions#tabline#alt_sep', 0) && a:group ==# 'airline_tabsel' && a:side
+    call airline#highlighter#add_separator(a:prev_group, a:group, 0)
+    let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
+    let line .=  a:self._context.right_sep.'%#'.a:group.'#'
+  else
+    call airline#highlighter#add_separator(a:prev_group, a:group, a:side)
+    let line .= '%#'.a:prev_group.'_to_'.a:group.'#'
+    let line .= a:side ? a:self._context.left_sep : a:self._context.right_sep
+    let line .= '%#'.a:group.'#'
+  endif
   return line
 endfunction
 
@@ -159,6 +168,11 @@ function! s:section_is_empty(self, content)
 
   " only check, if airline#skip_empty_sections == 1
   if get(g:, 'airline_skip_empty_sections', 0) == 0
+    return 0
+  endif
+
+  " only check, if airline#skip_empty_sections == 1
+  if get(w:, 'airline_skip_empty_sections', -1) == 0
     return 0
   endif
   " assume accents sections to be never empty
@@ -202,4 +216,3 @@ function! airline#builder#new(context)
         \ }, 'keep')
   return builder
 endfunction
-

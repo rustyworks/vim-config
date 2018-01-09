@@ -1,10 +1,10 @@
-if (exists("b:did_ftplugin"))
+if exists('b:did_ftplugin')
   finish
 endif
 let b:did_ftplugin = 1
 
 " Matchit support
-if exists("loaded_matchit") && !exists("b:match_words")
+if exists('loaded_matchit') && !exists('b:match_words')
   let b:match_ignorecase = 0
 
   let b:match_words = '\:\@<!\<\%(do\|fn\)\:\@!\>' .
@@ -15,43 +15,39 @@ if exists("loaded_matchit") && !exists("b:match_words")
         \ ',{:},\[:\],(:)'
 endif
 
+setlocal shiftwidth=2 softtabstop=2 expandtab iskeyword+=!,?
 setlocal comments=:#
 setlocal commentstring=#\ %s
 
-function! GetElixirFilename(word)
-  let word = a:word
-
-  " get first thing that starts uppercase, until the first space or end of line
-  let word = substitute(word,'^\s*\(\u[^ ]\+\).*$','\1','g')
-
-  " remove any trailing characters that don't look like a nested module
-  let word = substitute(word,'\.\U.*$','','g')
-
-  " replace module dots with slash
-  let word = substitute(word,'\.','/','g')
-
-  " remove any special chars
-  let word = substitute(word,'[^A-z0-9-_/]','','g')
-
-  " convert to snake_case
-  let word = substitute(word,'\(\u\+\)\(\u\l\)','\1_\2','g')
-  let word = substitute(word,'\(\u\+\)\(\u\l\)','\1_\2','g')
-  let word = substitute(word,'\(\l\|\d\)\(\u\)','\1_\2','g')
-  let word = substitute(word,'-','_','g')
-  let word = tolower(word)
-
-  return word
-endfunction
-
 let &l:path =
       \ join([
-      \   getcwd().'/lib',
-      \   getcwd().'/src',
-      \   getcwd().'/deps/**/lib',
-      \   getcwd().'/deps/**/src',
+      \   'lib',
+      \   'src',
+      \   'deps/**/lib',
+      \   'deps/**/src',
       \   &g:path
       \ ], ',')
-setlocal includeexpr=GetElixirFilename(v:fname)
+setlocal includeexpr=elixir#util#get_filename(v:fname)
 setlocal suffixesadd=.ex,.exs,.eex,.erl,.yrl,.hrl
 
+let &l:define = 'def\(macro|guard|delegate\)p'
+
 silent! setlocal formatoptions-=t formatoptions+=croqlj
+
+let b:block_begin = '\<\(do$\|fn\>\)'
+let b:block_end = '\<end\>'
+
+nnoremap <buffer> <silent> <expr> ]] ':silent keeppatterns /'.b:block_begin.'<CR>'
+nnoremap <buffer> <silent> <expr> [[ ':silent keeppatterns ?'.b:block_begin.'<CR>'
+nnoremap <buffer> <silent> <expr> ][ ':silent keeppatterns /'.b:block_end  .'<CR>'
+nnoremap <buffer> <silent> <expr> [] ':silent keeppatterns ?'.b:block_end  .'<CR>'
+
+onoremap <buffer> <silent> <expr> ]] ':silent keeppatterns /'.b:block_begin.'<CR>'
+onoremap <buffer> <silent> <expr> [[ ':silent keeppatterns ?'.b:block_begin.'<CR>'
+onoremap <buffer> <silent> <expr> ][ ':silent keeppatterns /'.b:block_end  .'<CR>'
+onoremap <buffer> <silent> <expr> [] ':silent keeppatterns ?'.b:block_end  .'<CR>'
+
+silent! setlocal formatoptions-=t formatoptions+=croqlj
+
+let b:undo_ftplugin = 'setlocal sw< sts< et< isk< com< cms< path< inex< sua< def<'.
+      \ '| unlet! b:match_ignorecase b:match_words b:block_begin b:block_end'

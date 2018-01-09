@@ -6,6 +6,7 @@ add_statusline_func	airline.txt	/*add_statusline_func*
 airline	airline.txt	/*airline*
 airline-accents	airline.txt	/*airline-accents*
 airline-advanced-customization	airline.txt	/*airline-advanced-customization*
+airline-ale	airline.txt	/*airline-ale*
 airline-autocommands	airline.txt	/*airline-autocommands*
 airline-branch	airline.txt	/*airline-branch*
 airline-bufferline	airline.txt	/*airline-bufferline*
@@ -17,16 +18,20 @@ airline-contributions	airline.txt	/*airline-contributions*
 airline-csv	airline.txt	/*airline-csv*
 airline-ctrlp	airline.txt	/*airline-ctrlp*
 airline-ctrlspace	airline.txt	/*airline-ctrlspace*
+airline-cursormode	airline.txt	/*airline-cursormode*
 airline-customization	airline.txt	/*airline-customization*
 airline-default	airline.txt	/*airline-default*
 airline-eclim	airline.txt	/*airline-eclim*
 airline-extensions	airline.txt	/*airline-extensions*
 airline-features	airline.txt	/*airline-features*
+airline-fugitiveline	airline.txt	/*airline-fugitiveline*
 airline-funcrefs	airline.txt	/*airline-funcrefs*
 airline-hunks	airline.txt	/*airline-hunks*
 airline-intro	airline.txt	/*airline-intro*
+airline-keymap	airline.txt	/*airline-keymap*
 airline-license	airline.txt	/*airline-license*
 airline-name	airline.txt	/*airline-name*
+airline-neomake	airline.txt	/*airline-neomake*
 airline-nrrwrgn	airline.txt	/*airline-nrrwrgn*
 airline-obsession	airline.txt	/*airline-obsession*
 airline-parts	airline.txt	/*airline-parts*
@@ -45,6 +50,7 @@ airline-themes	airline.txt	/*airline-themes*
 airline-tmuxline	airline.txt	/*airline-tmuxline*
 airline-troubleshooting	airline.txt	/*airline-troubleshooting*
 airline-vimagit	airline.txt	/*airline-vimagit*
+airline-vimtex	airline.txt	/*airline-vimtex*
 airline-virtualenv	airline.txt	/*airline-virtualenv*
 airline-whitespace	airline.txt	/*airline-whitespace*
 airline-windowswap	airline.txt	/*airline-windowswap*

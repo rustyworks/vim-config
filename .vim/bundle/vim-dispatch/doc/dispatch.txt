@@ -68,8 +68,9 @@ COMMANDS                                        *dispatch-commands*
 
                                                 *b:dispatch*
 :Dispatch[!]            Invoke |:Dispatch| with the options, program, and
-                        arguments found in b:dispatch.  When b:dispatch is
-                        absent, equivalent to |:Make|.
+                        arguments found in b:dispatch.  In the quickfix
+                        window, this reruns the shown dispatch.  When no other
+                        default is found, equivalent to |:Make|.
 
                                                 *dispatch-:FocusDispatch*
 :FocusDispatch [options] {program} [arguments]
@@ -150,8 +151,9 @@ for foreground |:Make| invocations.
 
 X11 ~
 
-Uses $TERMINAL, x-terminal-emulator, or xterm.  Used for |:Start| and, if
-wmctrl installed to aid in switching the focus back, |:Start!|.
+Uses g:dispatch_terminal_exec, "$TERMINAL -e", or "xterm -e".  Used only for
+foreground |:Start| unless wmctrl is installed (which is used to switch the
+focus back to Vim).
 
 Headless ~
 

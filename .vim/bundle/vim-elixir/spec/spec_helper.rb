@@ -39,12 +39,26 @@ class Buffer
 
   def syntax(content, pattern)
     with_file content
-    # move cursor the pattern
-    @vim.search pattern
-    # get a list of the syntax element
-    @vim.echo <<~EOF
+
+    # Using this function with a `pattern` that is not in `content` is pointless.
+    #
+    # @vim.search() silently fails if a pattern is not found and the cursor
+    # won't move. So, if the current cursor position happens to sport the
+    # expected syntax group already, this can lead to false positive tests.
+    #
+    # We work around this by using Vim's search() function, which returns 0 if
+    # there is no match.
+    if @vim.echo("search(#{pattern.inspect})") == '0'
+      return []
+    end
+
+    syngroups = @vim.echo <<~EOF
     map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
     EOF
+
+    # From: "['elixirRecordDeclaration', 'elixirAtom']"
+    # To:   ["elixirRecordDeclaration", "elixirAtom"]
+    syngroups.gsub!(/["'\[\]]/, '').split(', ')
   end
 
   private
@@ -55,6 +69,7 @@ class Buffer
     yield if block_given?
 
     @vim.write
+    @vim.command 'redraw'
     IO.read(@file)
   end
 
@@ -88,6 +103,18 @@ class Differ
   end
 end
 
+module ExBuffer
+  def self.new
+    Buffer.new(VIM, :ex)
+  end
+end
+
+module EexBuffer
+  def self.new
+    Buffer.new(VIM, :eex)
+  end
+end
+
 RSpec::Matchers.define :be_typed_with_right_indent do |syntax|
   buffer = Buffer.new(VIM, syntax || :ex)
 
@@ -97,9 +124,14 @@ RSpec::Matchers.define :be_typed_with_right_indent do |syntax|
   end
 
   failure_message do |code|
-    <<~EOM
-    #{Differ.diff(@typed, code)}
-    EOM
+      <<~EOM
+      Expected
+
+      #{@typed}
+      to be indented as
+
+      #{code}
+      EOM
   end
 end
 
@@ -111,12 +143,18 @@ end
     buffer = Buffer.new(VIM, type)
 
     match do |code|
-      buffer.reindent(code) == code
+      reindented = buffer.reindent(code)
+      reindented == code
     end
 
     failure_message do |code|
       <<~EOM
-      #{Differ.diff(buffer.reindent(code), code)}
+      Expected
+
+      #{buffer.reindent(code)}
+      to be indented as
+
+      #{code}
       EOM
     end
   end
@@ -160,7 +198,10 @@ Vimrunner::RSpec.configure do |config|
 
   config.start_vim do
     VIM = Vimrunner.start_gvim
-    VIM.add_plugin(File.expand_path('..', __dir__), 'ftdetect/elixir.vim')
+    VIM.add_plugin(File.expand_path('..', __dir__))
+    VIM.command('filetype off')
+    VIM.command('filetype plugin indent on')
+    VIM.normal(":set ignorecase<CR>") # make sure we test ignorecase
     VIM
   end
 end
@@ -171,4 +212,33 @@ RSpec.configure do |config|
   # Run a single spec by adding the `focus: true` option
   config.filter_run_including focus: true
   config.run_all_when_everything_filtered = true
+end
+
+RSpec::Core::ExampleGroup.instance_eval do
+  def i(str)
+    gen_tests(:it, str)
+  end
+
+  def ip(str)
+    gen_tests(:pending, str)
+  end
+
+  private
+
+  def gen_tests(method, str)
+    send method, "\n#{str}" do
+      reload = -> do
+        VIM.add_plugin(File.expand_path('..', __dir__), 'ftdetect/elixir.vim')
+        received = ExBuffer.new.reindent(str)
+        puts received
+        str == received
+      end
+      actual = ExBuffer.new.reindent(str)
+      expect(actual).to eq(str)
+    end
+
+    send method, "typed: \n#{str}" do
+      expect(str).to be_typed_with_right_indent
+    end
+  end
 end

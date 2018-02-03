@@ -129,6 +129,8 @@
 " NERDTree for project drawer
   Bundle "scrooloose/nerdtree.git"
     let NERDTreeHijackNetrw = 0
+    " Let unused file not shown in NERDTree
+    let NERDTreeIgnore = ['\.pyc', '__pycache__']
     nmap <leader>g :NERDTreeToggle<CR>
     nmap <leader>G :NERDTreeFind<CR>
 

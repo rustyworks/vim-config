@@ -21,3 +21,6 @@ endif
 
 " for git, add spell checking and automatic wrapping at 72 columns
 autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" ensure the file is reloading the latest file in vim
+au FocusGained,BufEnter * :checktime

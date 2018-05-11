@@ -3,3 +3,5 @@
   :command Wq wq
   :command W w
   :command Q q
+  :command QA qa
+  :command Qa qa

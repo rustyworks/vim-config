@@ -68,4 +68,4 @@
 
 " make `jj` and `jk` throw you into normal mode
   inoremap jj <esc>
-  " inoremap jk <esc>
+  inoremap jk <esc>

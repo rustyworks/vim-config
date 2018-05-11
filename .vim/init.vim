@@ -1,1 +1,1 @@
-/home/tristanto/.vimrc
+/Users/tristanto/.vimrc

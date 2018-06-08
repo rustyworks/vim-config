@@ -64,7 +64,7 @@ function! s:Ruby_Matchit()
 
 endfunction
 
-nnoremap <buffer> \\\\\ %
-nnoremap <buffer> % :call <SID>Ruby_Matchit()<CR>
-
-
+if (&ft=='rb')
+  nnoremap <silent> \\\\\ %
+  nnoremap <silent> % :call <SID>Ruby_Matchit()<CR>
+endif

@@ -10,24 +10,16 @@ This config is built primarily to work on top of the OSX version of `MacVim`, bu
 This vim configuration requires the Meslo font from
 [https://github.com/Lokaltog/powerline-fonts](https://github.com/Lokaltog/powerline-fonts)
 
-## Attention Windows Users!
-
-If you are installing this config on Microsoft Windows, you must download and install the latest [RailsInstaller](http://www.railsinstaller.org/) package.  Go ahead and do it now.  I'll wait.
-
-Install the latest version of [Vim](http://www.vim.org/download.php#pc) and install with default options + checking the "Create .bat files for command line use".
-
-The Windows version of the Vim configuration uses rake (for installation) git (for Vim plugin installations), and requires several other packages to emulate Ack (for file searching) and Curl (for gists) under Windows.  RailsInstaller is a single package that installs everything we will need to get things working.
-
 ## Install
-
-Windows users: be sure to use **RailsInstaller** > **Command Prompt with Ruby and Rails** to perform these installation steps instead of the normal command prompt.
 
 1. `git clone https://github.com/rustyworks/vim-config.git`
 2. `cd vim-config`
-3. `rake` (This will symlink the necessary files to your home directory, asking for permission before clobbering anything.)
-4. `vim` (or in Windows: `gvim`)
-5. `:BundleClean` (if you have previously used this Neo Vim config)
-6. `:BundleInstall` (This will clone and install all of the plugins from github.)
+3. `./link.sh`
+
+## Reinstall plugin
+
+1. `:BundleClean` (if you have previously used this Neo Vim config)
+2. `:BundleInstall` (This will clone and install all of the plugins from github.)
 
 ## Customizing
 
@@ -45,19 +37,11 @@ Common practice is to symlink a folder containing your custom configuration file
 
 ## Key mappings (remember case matters!)
 
-* `CMD + i` - exit out of insert mode
-* `<leader>w` - turn on line wrapping
-* `<leader>W` - turn off line wrapping
-* `<leader>ss` - save all buffers
-* `Y` - copy (yank) from the cursor to the end of the line
-* `vv` - select the lines which were just pasted
+* `<leader>w` - toggle line wrapping
 * `<leader><spacebar>` - clear search highlighting
-* `<C-p>` - insert path of currently active buffer into command
 
 #### Whitespace key mappings
 
-* `go` - insert blank line below current without entering insert mode
-* `gO` - insert blank line above current without entering insert mode
 * `<leader>I` - reindent the entire file
 * `<leader>c` - cleanup trailing whitespace in current buffer
 * `<leader>e` - compress excess whitespace on current line (cleans tabularize spacing)
@@ -122,7 +106,7 @@ checkers as they are saved and opened. If syntax errors are detected, the user
 is notified and is happy because they didn't have to compile their code or
 execute their script to find them.
 
-## Gundo
+## UndoTree
 
 Awesome visual representation of `vim` undo tree.
 

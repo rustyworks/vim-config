@@ -18,6 +18,7 @@
   Bundle "rustyworks/ruby-matchit.git"
   Bundle "tpope/vim-abolish.git"
   Bundle "terryma/vim-multiple-cursors"
+  Bundle 'leafgarland/typescript-vim'
   " Bundle "Valloric/YouCompleteMe"
 
  " Vim airline configs

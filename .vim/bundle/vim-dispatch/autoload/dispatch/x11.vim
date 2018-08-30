@@ -23,7 +23,7 @@ function! dispatch#x11#handle(request) abort
     return 0
   endif
   if a:request.action ==# 'make'
-    if !get(a:request, 'background', 0) && empty(v:servername)
+    if !get(a:request, 'background', 0) && !dispatch#has_callback()
       return 0
     endif
     return dispatch#x11#spawn(terminal, dispatch#prepare_make(a:request), a:request)
@@ -39,7 +39,7 @@ function! dispatch#x11#spawn(terminal, command, request) abort
   if a:request.background || a:request.action ==# 'make'
     let command = 'wmctrl -i -a '.v:windowid . ';' . command
   endif
-  call system(a:terminal . ' ' . dispatch#shellescape(a:terminal, &shell, &shellcmdflag, command). ' &')
+  call system(a:terminal . ' ' . dispatch#shellescape(&shell, &shellcmdflag, command). ' &')
   return 1
 endfunction
 

@@ -3,7 +3,7 @@
 " Version:      1.1
 " GetLatestVimScripts: 4978 1 :AutoInstall: fireplace.vim
 
-if exists("g:loaded_fireplace") || v:version < 700 || &cp
+if exists("g:loaded_fireplace") || v:version < 700 || &compatible
   finish
 endif
 let g:loaded_fireplace = 1
@@ -22,10 +22,26 @@ function! s:map(mode, lhs, rhs, ...) abort
     return
   endif
   let flags = (a:0 ? a:1 : '') . (a:rhs =~# '^<Plug>' ? '' : '<script>')
-  if flags =~# '<unique>' && !empty(mapcheck(a:lhs, a:mode))
+  let head = a:lhs
+  let tail = ''
+  let keys = get(g:, a:mode.'remap', {})
+  if type(keys) != type({})
     return
   endif
-  execute a:mode.'map <buffer>' flags a:lhs a:rhs
+  while !empty(head)
+    if has_key(keys, head)
+      let head = keys[head]
+      if empty(head)
+        return
+      endif
+      break
+    endif
+    let tail = matchstr(head, '<[^<>]*>$\|.$') . tail
+    let head = substitute(head, '<[^<>]*>$\|.$', '', '')
+  endwhile
+  if flags !~# '<unique>' || empty(mapcheck(head.tail, a:mode))
+    exe a:mode.'map <buffer>' flags head.tail a:rhs
+  endif
 endfunction
 
 " Section: Escaping
@@ -63,7 +79,7 @@ function! fireplace#jar_contents(path) abort
     endif
   endif
 
-  if !has_key(s:jar_contents, a:path) && has('python')
+  if !has_key(s:jar_contents, a:path) && has('python') && !$FIREPLACE_NO_IF_PYTHON
     python import vim, zipfile
     python vim.command("let s:jar_contents[a:path] = split('" + "\n".join(zipfile.ZipFile(vim.eval('a:path')).namelist()) + "', \"\n\")")
   elseif !has_key(s:jar_contents, a:path) && !empty(s:zipinfo)
@@ -291,7 +307,8 @@ function! s:repl.piggieback(arg, ...) abort
 
   let connection = s:conn_try(self.connection, 'clone')
   if empty(a:arg)
-    let arg = '(cljs.repl.rhino/repl-env)'
+    call connection.eval("(require 'cljs.repl.nashorn)")
+    let arg = '(cljs.repl.nashorn/repl-env)'
   elseif a:arg =~# '^\d\{1,5}$'
     let replns = 'weasel.repl.websocket'
     if has_key(connection.eval("(require '" . replns . ")"), 'ex')
@@ -303,7 +320,9 @@ function! s:repl.piggieback(arg, ...) abort
   else
     let arg = a:arg
   endif
-  let response = connection.eval('(cemerick.piggieback/cljs-repl'.' '.arg.')')
+  let response = connection.eval("((or (resolve 'cider.piggieback/cljs-repl)"
+        \ ."(resolve 'cemerick.piggieback/cljs-repl))"
+        \ .' '.arg.')')
 
   if empty(get(response, 'ex'))
     call insert(self.piggiebacks, extend({'connection': connection}, deepcopy(s:piggieback)))
@@ -602,13 +621,12 @@ function! s:buf() abort
   endif
 endfunction
 
-function! s:repl_ns() abort
+function! s:repl_ns(...) abort
   let buf = a:0 ? a:1 : s:buf()
   if fnamemodify(bufname(buf), ':e') ==# 'cljs'
     return 'cljs.repl'
   endif
-    return 'clojure.repl'
-  endif
+  return 'clojure.repl'
 endfunction
 
 function! s:slash() abort
@@ -775,7 +793,7 @@ function! s:temp_response(response) abort
     let output = map(split(a:response.out, "\n"), '";".v:val')
   endif
   if has_key(a:response, 'value')
-    let output += [a:response.value]
+    let output += split(a:response.value, "\n")
   endif
   let temp = tempname().'.clj'
   call writefile(output, temp)
@@ -934,7 +952,7 @@ function! fireplace#quickfix_for(stacktrace) abort
 endfunction
 
 function! s:massage_quickfix() abort
-  let p = substitute(matchstr(','.&errorformat, ',classpath\zs\%(\\.\|[^\,]\)*'), '\\\ze[\,%]', '', 'g')
+  let p = substitute(matchstr(','.&errorformat, '\C,\%(%\\&\)\=classpath\zs\%(\\.\|[^\,]\)*'), '\\\ze[\,%]', '', 'g')
   if empty(p)
     return
   endif
@@ -943,7 +961,13 @@ function! s:massage_quickfix() abort
   for entry in qflist
     call extend(entry, s:qfmassage(get(entry, 'text', ''), path))
   endfor
+  if exists(':chistory')
+    let attrs = getqflist({'title': 1})
+  endif
   call setqflist(qflist, 'r')
+  if exists('l:attrs')
+    call setqflist(qflist, 'r', attrs)
+  endif
 endfunction
 
 augroup fireplace_quickfix
@@ -1035,8 +1059,26 @@ function! s:printop(type) abort
   call feedkeys("\<Plug>FireplacePrintLast")
 endfunction
 
+function! s:add_pprint_opts(msg) abort
+  let a:msg.pprint = 1
+
+  let a:msg.pprint_fn = get(g:, 'fireplace_pprint_fn', 'cider.nrepl.middleware.pprint/fipp-pprint')
+  let max_right_margin = get(g:, 'fireplace_print_right_margin', &columns)
+  let a:msg.print_right_margin = min([l:max_right_margin, &columns])
+  if exists("g:fireplace_print_length")
+    let a:msg.print_length = g:fireplace_print_length
+  endif
+  if exists("g:fireplace_print_level")
+    let a:msg.print_level = g:fireplace_print_level
+  endif
+  if exists("g:fireplace_print_meta")
+    let a:msg.print_meta = g:fireplace_print_meta
+  endif
+  return a:msg
+endfunction
+
 function! s:print_last() abort
-  call fireplace#echo_session_eval(s:todo, {'file_path': s:buffer_path()})
+  call fireplace#echo_session_eval(s:todo, s:add_pprint_opts({'file_path': s:buffer_path()}))
   return ''
 endfunction
 
@@ -1108,7 +1150,7 @@ function! s:Eval(bang, line1, line2, count, args) abort
     catch /^Clojure:/
     endtry
   else
-    call fireplace#echo_session_eval(expr, options)
+    call fireplace#echo_session_eval(expr, s:add_pprint_opts(options))
   endif
   return ''
 endfunction
@@ -1612,7 +1654,7 @@ augroup END
 " Section: Formatting
 
 function! fireplace#format(lnum, count, char) abort
-  if mode() =~# '[iR]'
+  if mode() =~# '[iR]' || getline(a:lnum) =~# '^\s*;'
     return -1
   endif
   let reg_save = @@
@@ -1621,10 +1663,11 @@ function! fireplace#format(lnum, count, char) abort
   try
     set selection=inclusive clipboard-=unnamed clipboard-=unnamedplus
     silent exe "normal! " . string(a:lnum) . "ggV" . string(a:count-1) . "jy"
-    let response = fireplace#message({'op': 'format-code', 'code': @@})[0]
+    let code = @@
+    let response = fireplace#message({'op': 'format-code', 'code': code})[0]
     if !empty(get(response, 'formatted-code'))
       let @@ = get(response, 'formatted-code')
-      if @@ !~# '^\n*$'
+      if @@ !~# '^\n*$' && @@ !=# code
         normal! gvp
       endif
     endif

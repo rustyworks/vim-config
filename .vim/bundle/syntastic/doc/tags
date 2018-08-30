@@ -426,6 +426,7 @@ syntastic-global-options	syntastic.txt	/*syntastic-global-options*
 syntastic-glsl-cgc	syntastic-checkers.txt	/*syntastic-glsl-cgc*
 syntastic-go-go	syntastic-checkers.txt	/*syntastic-go-go*
 syntastic-go-gofmt	syntastic-checkers.txt	/*syntastic-go-gofmt*
+syntastic-go-golangci_lint	syntastic-checkers.txt	/*syntastic-go-golangci_lint*
 syntastic-go-golint	syntastic-checkers.txt	/*syntastic-go-golint*
 syntastic-go-gometalinter	syntastic-checkers.txt	/*syntastic-go-gometalinter*
 syntastic-go-gotype	syntastic-checkers.txt	/*syntastic-go-gotype*
@@ -481,6 +482,7 @@ syntastic-lua-luac	syntastic-checkers.txt	/*syntastic-lua-luac*
 syntastic-lua-luacheck	syntastic-checkers.txt	/*syntastic-lua-luacheck*
 syntastic-markdown-mdl	syntastic-checkers.txt	/*syntastic-markdown-mdl*
 syntastic-markdown-proselint	syntastic-checkers.txt	/*syntastic-markdown-proselint*
+syntastic-markdown-remark_lint	syntastic-checkers.txt	/*syntastic-markdown-remark_lint*
 syntastic-markdown-textlint	syntastic-checkers.txt	/*syntastic-markdown-textlint*
 syntastic-matlab-mlint	syntastic-checkers.txt	/*syntastic-matlab-mlint*
 syntastic-mercury-mmc	syntastic-checkers.txt	/*syntastic-mercury-mmc*

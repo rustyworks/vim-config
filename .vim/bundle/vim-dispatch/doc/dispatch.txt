@@ -66,8 +66,11 @@ COMMANDS                                        *dispatch-commands*
                         -compiler=... force use of a compiler plugin
                         -dir=...      run command in given directory
 
+:Dispatch[!] [options] -- [arguments]
+                        This is equivalent to |:Make| but accepts options.
+
                                                 *b:dispatch*
-:Dispatch[!]            Invoke |:Dispatch| with the options, program, and
+:Dispatch[!] [options]  Invoke |:Dispatch| with the options, program, and
                         arguments found in b:dispatch.  In the quickfix
                         window, this reruns the shown dispatch.  When no other
                         default is found, equivalent to |:Make|.
@@ -88,6 +91,15 @@ COMMANDS                                        *dispatch-commands*
 :FocusDispatch          Show the task that would run when calling |:Dispatch|
                         with no arguments.
 
+:0Dispatch[!] [options] Provida a range to |:Dispatch| skips any focused task
+                        and forces |b:dispatch|.
+
+                                                *dispatch-:AbortDispatch*
+:AbortDispatch          Abort the most recent build.
+
+:AbortDispatch {command}
+                        Abort the most recent build of {command}.
+
                                                 *dispatch-:Start*
 :Start [options] {command}
                         Start a process in a new, focused window.  If
@@ -106,7 +118,7 @@ COMMANDS                                        *dispatch-commands*
                         previous :Start invocation, do nothing.
 
                                                 *b:start*
-:Start[!]               With no arguments, |:Start| the options and command
+:Start[!] [options]     With no arguments, |:Start| the options and command
                         given by |b:start|.  If not set, falls back to
                         'shell'.
 
@@ -116,16 +128,49 @@ COMMANDS                                        *dispatch-commands*
                         than focusing an existing one.  The default is always
                         to spawn a new 'shell'.
 
+:0Spawn! [options]
+                        Provide a range to |:Spawn| to spawn |b:dispatch|.
+                        Handy for using an interactive debugger.
+
+MAPS                                            *dispatch-maps*
+
+The following convenience maps are provided.
+
+*m<CR>*                   |:Make|<CR>
+*m<Space>*                |:Make|<Space>
+*m!*                      |:Make|!
+*m?*                      Show 'makeprg'
+*`<CR>*                   |:Dispatch|<CR>
+*`<Space>*                |:Dispatch|<Space>
+*`!*                      |:Dispatch|!
+*`?*                      |:FocusDispatch|<CR>
+*'<CR>*                   |:Start|<CR>
+*'<Space>*                |:Start|<Space>
+*'!*                      |:Start|!
+*'?*                      Show |b:start|
+*g'<CR>*                  |:Spawn|<CR>
+*g'<Space>*               |:Spawn|<Space>
+*g'!*                     |:Spawn|!
+*g'?*                     Show 'shell'
+
+These can be disabled with
+>
+        let g:dispatch_no_maps = 1
+<
 STRATEGIES                                      *dispatch-strategies*
 
 Strategies are listed in order of precedence.  The first available one is
 used.  Some strategies only provide for a subset of tasks.
 
+Except for Tmux, which uses |VimResized|, all strategies require either |job|
+support plus a file system with FIFOs (basically everything but Windows) or
+|clientserver| support to do foreground makes.
+
 Tmux ~
 
 Foreground makes open in a small split at the bottom.  The closure of the
 pane triggers a |VimResized| event which loads the results into the quickfix
-list.  (All other strategies use the GUI subsystem to get this to work.)
+list.
 
 The tmux strategy can be used from the GUI as well.  Either start Vim from
 inside of tmux or assign g:tmux_session.  This will use a new window for
@@ -135,7 +180,7 @@ Tmux 1.6 or newer is required.
 
 GNU Screen ~
 
-Not used for foreground |:Make| invocations unless you're in GUI Vim.
+A new window is always used, since splits in GNU Screen are awkward.
 
 Windows ~
 
@@ -146,8 +191,7 @@ stealing.
 iTerm ~
 
 This strategy fires if you're in MacVim with at least one iTerm window open,
-or if Vim is running in iTerm itself.  In the latter case, you can't use it
-for foreground |:Make| invocations.
+or if Vim is running in iTerm itself.
 
 X11 ~
 

@@ -46,16 +46,6 @@ describe 'Indenting blocks' do
     EOF
   end
 
-  it 'guard in function' do
-    expect(<<~EOF).to include_elixir_syntax('elixirKernelFunction', 'is_atom')
-    defmodule M do
-      def fun(a) when is_atom(a) do
-        1
-      end
-    end
-    EOF
-  end
-
   it 'does not consider do: as the start of a block' do
     expect(<<~EOF).to be_elixir_indentation
     def f do
@@ -133,7 +123,7 @@ describe 'Indenting blocks' do
   EOF
 
   i <<~EOF
-  def handle_info(:tick, state = %{policy_iteration: []) do
+  def handle_info(:tick, state = %{policy_iteration: []}) do
     state = put_in(state[:policy_iteration], state.policy)
     {:noreply, state}
   end

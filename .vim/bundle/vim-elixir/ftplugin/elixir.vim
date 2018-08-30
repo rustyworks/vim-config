@@ -30,7 +30,7 @@ let &l:path =
 setlocal includeexpr=elixir#util#get_filename(v:fname)
 setlocal suffixesadd=.ex,.exs,.eex,.erl,.yrl,.hrl
 
-let &l:define = 'def\(macro|guard|delegate\)p'
+let &l:define = 'def\(macro\|guard\|delegate\)\=p\='
 
 silent! setlocal formatoptions-=t formatoptions+=croqlj
 

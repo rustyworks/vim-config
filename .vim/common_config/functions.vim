@@ -14,6 +14,7 @@ endfunction
 command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
 
 
+" Running selected python code
 function! s:GetVisualSelection()
   let [lnum1, col1] = getpos("'<")[1:2]
   let [lnum2, col2] = getpos("'>")[1:2]
@@ -24,3 +25,28 @@ function! s:GetVisualSelection()
 endfunction
 
 autocmd FileType python noremap <Leader>r :<C-U>exec '!python -c' shellescape(<SID>GetVisualSelection(), 1)<CR>
+
+
+" Go to django related file
+fun! RelatedFile(file)
+    "This is to check that the directory looks djangoish
+    if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+        exec "edit %:h/" . a:file
+        let g:last_relative_dir = expand("%:h") . '/'
+        return ''
+    endif
+    if g:last_relative_dir != ''
+        exec "edit " . g:last_relative_dir . a:file
+        return ''
+    endif
+    echo "Cant determine where relative file is : " . a:file
+    return ''
+endfun
+
+fun SetAppDir()
+    if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+        let g:last_relative_dir = expand("%:h") . '/'
+        return ''
+    endif
+endfun
+autocmd BufEnter *.py call SetAppDir()

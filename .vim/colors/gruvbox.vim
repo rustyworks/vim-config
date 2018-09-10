@@ -454,7 +454,8 @@ if version >= 700
   hi! link TabLine TabLineFill
 
   " Match paired bracket under the cursor
-  call s:HL('MatchParen', s:none, s:bg3, s:bold)
+  call s:HL('MatchParen', s:none, s:none)
+  " call s:HL('MatchParen', s:none, s:bg3, s:bold)
 endif
 
 if version >= 703

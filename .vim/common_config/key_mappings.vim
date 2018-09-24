@@ -18,7 +18,8 @@
   nmap gv :call RelatedFile ("views.py")<cr>
   nmap gu :call RelatedFile ("urls.py")<cr>
   nmap ga :call RelatedFile ("admin.py")<cr>
-  nmap gt :call RelatedFile ("tests.py")<cr>
+  " nmap gt :call RelatedFile ("tests.py")<cr> " Conflict with change tab
+  " shortcut
   nmap gs :find settings.py<cr>
 
 " insert blank lines without going into insert mode

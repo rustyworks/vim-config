@@ -109,3 +109,23 @@
 
 " JSON is JS
   au BufNewFile,BufRead *.json set ai filetype=javascript
+
+" Enable cursor line position tracking:
+  set cursorline
+" Remove the underline from enabling cursorline:
+  au VimEnter,WinEnter,BufWinEnter * hi clear CursorLine
+" Set line numbering to red background:
+  au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=red
+
+" CursorLine and CursorColumn autocommand
+" augroup CursorLine
+"   au!
+"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"   au VimLeave * setlocal nocursorline
+" augroup END
+
+" augroup CursorColumn
+"   au!
+"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+"   au VimLeave,WinLeave * setlocal nocursorcolumn
+" augroup END

@@ -1,5 +1,6 @@
 set rtp+=~/.vim/bundle/Vundle.vim/
 set rtp+=~/.fzf
+set rtp+=/usr/local/opt/fzf
 
 " This userful if you use 'find' command
 set path+=**

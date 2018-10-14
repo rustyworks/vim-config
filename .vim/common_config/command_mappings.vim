@@ -10,4 +10,4 @@
   :command HtmlDjango au BufNewFile,BufRead *.html set filetype=htmldjango
 
 " Stop mouse support
-  :command StopMouse au BufEnter * set mouse=
+  :command DisableMouse au BufEnter * set mouse=

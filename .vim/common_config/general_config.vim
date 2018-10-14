@@ -117,7 +117,7 @@
 " Set line numbering to red background:
   au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=red
 
-" CursorLine and CursorColumn autocommand
+" " CursorLine and CursorColumn autocommand
 " augroup CursorLine
 "   au!
 "   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline

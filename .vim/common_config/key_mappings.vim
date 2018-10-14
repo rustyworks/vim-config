@@ -81,3 +81,6 @@
 
 " disable left-click to prevent accidentally click when using touchpad
   map <LeftMouse> <Nop>
+
+" change directory to current openfile
+  nnoremap <leader>cd :cd %:p:h<CR>

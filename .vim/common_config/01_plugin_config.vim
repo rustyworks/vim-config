@@ -134,6 +134,7 @@
     let NERDTreeIgnore = ['\.pyc', '__pycache__']
     nmap <leader>g :NERDTreeToggle<CR>
     nmap <leader>G :NERDTreeFind<CR>
+    nmap <leader>H :NERDTree<CR>
 
 
 " Tabular for aligning text

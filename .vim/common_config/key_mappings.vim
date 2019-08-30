@@ -44,6 +44,9 @@
   noremap <Leader>9 9gt
   noremap <Leader>0 :tablast<cr>
 
+" mapping previous file instead previous cursor goto
+  " nmap <C-O> <C-^>
+
 " Yank from the cursor to the end of the line, to be consistent with C and D.
   nnoremap Y y$
 

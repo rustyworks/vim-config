@@ -122,9 +122,12 @@ let g:airline#themes#dark#palette.visual_modified = {
       \ }
 
 
-let s:airline_a_inactive = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
-let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
-let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
+" let s:airline_a_inactive = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
+" let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
+" let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
+let s:airline_a_inactive = [ '#4e4e4e' , '#1c1c1c' , 250 , 234 , '' ]
+let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 250 , 235 , '' ]
+let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 250 , 236 , '' ]
 let g:airline#themes#dark#palette.inactive = airline#themes#generate_color_map(s:airline_a_inactive, s:airline_b_inactive, s:airline_c_inactive)
 let g:airline#themes#dark#palette.inactive_modified = {
       \ 'airline_c': [ '#875faf' , '' , 97 , '' , '' ] ,

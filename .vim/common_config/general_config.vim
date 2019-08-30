@@ -115,7 +115,9 @@
 " Remove the underline from enabling cursorline:
   au VimEnter,WinEnter,BufWinEnter * hi clear CursorLine
 " Set line numbering to red background:
-  au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=red
+  " au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=red
+" Set line numbering to black background for solarized:
+  au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=0
 
 " " CursorLine and CursorColumn autocommand
 " augroup CursorLine

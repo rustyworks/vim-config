@@ -16,6 +16,15 @@ This vim configuration requires the Meslo font from
 2. `cd vim-config`
 3. `./link.sh`
 
+## Neovim user
+
+Add this to ~/.config/nvim/init.vim
+```
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath=&runtimepath
+source ~/.vimrc
+```
+
 ## Reinstall plugin
 
 1. `:BundleClean` (if you have previously used this Neo Vim config)

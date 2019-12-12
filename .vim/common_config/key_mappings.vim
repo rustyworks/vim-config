@@ -2,6 +2,9 @@
   nmap <Leader>w :set wrap!<cr>
   nmap <Leader>W :set nowrap<cr>
 
+" swap background light and dark
+  nmap <Leader>x :SwapBackground<cr>
+
 " close all other windows (in the current tab)
   nmap gW :only<cr>
 

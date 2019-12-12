@@ -43,6 +43,16 @@ fun! RelatedFile(file)
     return ''
 endfun
 
+function! <SID>SwapBackground()
+  if (&background ==# "light")
+    set background=dark
+  else
+    set background=light
+  endif
+endfunction
+command! SwapBackground call <SID>SwapBackground()
+
+
 fun SetAppDir()
     if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
         let g:last_relative_dir = expand("%:h") . '/'

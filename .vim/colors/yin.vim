@@ -34,7 +34,7 @@ let s:palette.gray14 = [251, '#c6c6c6']
 let s:palette.gray15 = [254, '#e4e4e4']
 let s:palette.white = [255, '#eeeeee']
 
-let s:palette.comments = copy(s:palette.gray03)
+let s:palette.comments = copy(s:palette.gray04)
 
 let s:palette.purple = [62, '#5f5fd7']
 let s:palette.brown = [94, '#875f00']
@@ -104,7 +104,8 @@ call s:hi('SpecialComment', s:palette.comments, [], 'bold')
 call s:hi('Title', s:palette.gray07, [], 'bold')
 call s:hi('Todo', s:palette.purple, s:palette.black, '')
 if has("nvim") || has("gui_running")
-    call s:hi('Comment', s:palette.comments, [], 'italic')
+    " call s:hi('Comment', s:palette.comments, [], 'italic')
+    call s:hi('Comment', s:palette.comments, [], '')
 else
     call s:hi('Comment', s:palette.comments, [], '')
 endif

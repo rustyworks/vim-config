@@ -254,6 +254,7 @@
   let g:python_highlight_all = 0
 
   Bundle "numirias/semshi", {"do": ":UpdateRemotePlugins"}
+  let g:semshi#mark_selected_nodes = 0
   " Need to run:
   " pip3 install pynvim
   " :UpdateRemotePlugins

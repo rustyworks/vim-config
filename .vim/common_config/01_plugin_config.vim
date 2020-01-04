@@ -13,12 +13,14 @@
   Bundle "tpope/vim-rake.git"
   Bundle "tpope/vim-repeat.git"
   Bundle "vim-ruby/vim-ruby.git"
+  Bundle "leafgarland/typescript-vim"
+  Bundle "peitalin/vim-jsx-typescript"
   Bundle "vim-scripts/L9.git"
   Bundle "vim-scripts/matchit.zip"
   Bundle "rustyworks/ruby-matchit.git"
   Bundle "tpope/vim-abolish.git"
   Bundle "terryma/vim-multiple-cursors"
-  Bundle 'leafgarland/typescript-vim'
+  Bundle "dracula/vim", { "name": "dracula" }
   " Bundle "Valloric/YouCompleteMe"
 
  " Vim airline configs
@@ -245,6 +247,10 @@
 
 " Rust!
   Bundle 'wting/rust.vim.git'
+
+" Python Highlighting"
+  Bundle "vim-python/python-syntax"
+  let g:python_highlight_all = 1
 
 " Easy async RSpec running
   Bundle 'thoughtbot/vim-rspec'

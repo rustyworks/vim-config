@@ -80,10 +80,6 @@
       nnoremap <Leader>t :<C-U>CtrlP<CR>
     endif
 
-" Go
-  Bundle "jnwhiteh/vim-golang.git"
-    au BufNewFile,BufRead *.go set filetype=go
-
 " Slim
   Bundle "slim-template/vim-slim.git"
     au BufNewFile,BufRead *.slim set filetype=slim

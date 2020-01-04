@@ -12,8 +12,13 @@ runtime! custom_config/*.vim
 
 let g:dracula_italic = 0
 colorscheme dracula
+set termguicolors
+
 " colorscheme yin
+
 " colorscheme gruvbox
+
+" colorscheme solarized
 " set background=light
 
 " This config is for nvim only

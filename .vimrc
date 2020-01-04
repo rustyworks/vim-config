@@ -1,5 +1,6 @@
 set rtp+=~/.vim/bundle/Vundle.vim/
 set rtp+=~/.fzf
+set rtp+=~/.vim/bundle/dracula
 set rtp+=/usr/local/opt/fzf
 
 " This userful if you use 'find' command
@@ -9,8 +10,10 @@ runtime! custom_preconfig/*.vim
 runtime! common_config/*.vim
 runtime! custom_config/*.vim
 
-colorscheme gruvbox
-set background=dark
+colorscheme dracula
+" colorscheme yin
+" colorscheme gruvbox
+" set background=light
 
 " This config is for nvim only
 if has('nvim')

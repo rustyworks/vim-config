@@ -25,6 +25,13 @@ let &packpath=&runtimepath
 source ~/.vimrc
 ```
 
+# Python semshi user
+
+1. Run `pip install pynvim` inside terminal
+2. Check if python exist `:echo has("python3")` inside nvim
+3. Run `:UpdateRemotePlugins` inside nvim
+4. Restart nvim (must have nvim)
+
 ## Reinstall plugin
 
 1. `:BundleClean` (if you have previously used this Neo Vim config)

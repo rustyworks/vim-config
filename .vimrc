@@ -10,6 +10,7 @@ runtime! custom_preconfig/*.vim
 runtime! common_config/*.vim
 runtime! custom_config/*.vim
 
+let g:dracula_italic = 0
 colorscheme dracula
 " colorscheme yin
 " colorscheme gruvbox

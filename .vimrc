@@ -12,7 +12,10 @@ runtime! custom_config/*.vim
 
 let g:dracula_italic = 0
 colorscheme dracula
-set termguicolors
+
+if has('termguicolors')
+  set termguicolors
+endif
 
 " colorscheme yin
 

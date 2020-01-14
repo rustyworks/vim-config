@@ -4,7 +4,8 @@ You should give it a try.
 
 ## Pre-requisites
 
-This config is built primarily to work on top of the OSX version of `MacVim`, but should be usable on top of other `vim` or `gvim` installations that are built with all of the `vim` features necessary to support the used plugins.
+This configuration is for neovim 0.3+, but still can be used for vim user
+(Use `sudo add-apt-repository ppa:neovim-ppa/stable -y && sudo apt update && sudo apt install neovim` for ubuntu user, or `brew install neovim` for mac user
 
 ## Font Requirement
 This vim configuration requires the Meslo font from

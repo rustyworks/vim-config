@@ -14,23 +14,14 @@ This vim configuration requires the Meslo font from
 
 1. `git clone https://github.com/rustyworks/vim-config.git`
 2. `cd vim-config`
-3. `./link.sh`
+3. `./link.sh` for neovim user or `./link_vim_only.sh` for vim user
 
-## Neovim user
-
-Add this to ~/.config/nvim/init.vim
-```
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath=&runtimepath
-source ~/.vimrc
-```
-
-# Python semshi user
+# Python semshi user (Must be neovim 0.3+)
 
 1. Run `pip install pynvim` inside terminal
 2. Check if python exist `:echo has("python3")` inside nvim
 3. Run `:UpdateRemotePlugins` inside nvim
-4. Restart nvim (must have nvim)
+4. Restart nvim (Must have nvim 0.3+.
 
 ## Reinstall plugin
 

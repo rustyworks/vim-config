@@ -247,19 +247,7 @@
 " Python Highlighting"
   Bundle "vim-python/python-syntax"
   " Conflict with semshi, need to be 0
-  if has('python3')
-    let g:python_highlight_all = 0
-  else
-    let g:python_highlight_all = 1
-  endif
-
-  Bundle "numirias/semshi", {"do": ":UpdateRemotePlugins"}
-  let g:semshi#mark_selected_nodes = 0
-  " Need to run:
-  " pip3 install pynvim
-  " :UpdateRemotePlugins
-  " Restart
-
+  let g:python_highlight_all = 1
 
 " Easy async RSpec running
   Bundle 'thoughtbot/vim-rspec'

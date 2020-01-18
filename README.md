@@ -17,13 +17,6 @@ This vim configuration requires the Meslo font from
 2. `cd vim-config`
 3. `./link.sh` for neovim user or `./link_vim_only.sh` for vim user
 
-# Python semshi user (Must be neovim 0.3+)
-
-1. Run `pip install pynvim` inside terminal
-2. Check if python exist `:echo has("python3")` inside nvim
-3. Run `:UpdateRemotePlugins` inside nvim
-4. Restart nvim (Must have nvim 0.3+.
-
 ## Reinstall plugin
 
 1. `:BundleClean` (if you have previously used this Neo Vim config)

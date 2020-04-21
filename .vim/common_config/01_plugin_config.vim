@@ -226,7 +226,9 @@
   autocmd BufNewFile,BufRead *.cljx set filetype=clojure
 
   let g:paredit_leader= '\'
-  let g:paredit_disable_clojure
+  " let g:paredit_disable_clojure
+  " let g:paredit_disable_lisp
+  " let g:paredit_disable_scheme
   let vimclojure#ParenRainbow  = 1
 
 " Jade Highlighting"

@@ -82,8 +82,8 @@
   cmap <C-S-P> <C-R>=expand("%:p:h") . "/" <cr>
 
 " make `jj` and `jk` throw you into normal mode
-  inoremap jj <esc>
-  inoremap jk <esc>
+  " inoremap jj <esc>
+  " inoremap jk <esc>
 
 " disable left-click to prevent accidentally click when using touchpad
   map <LeftMouse> <Nop>

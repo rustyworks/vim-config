@@ -75,6 +75,8 @@
   Bundle "junegunn/fzf.vim.git"
   " use fzf if FZF present, else CtrlP
     if executable("fzf")
+      " Docking to bottom instead of floating on neovim
+      let g:fzf_layout = { 'down': '~40%' }
       nnoremap <Leader>t :<C-U>FZF<CR>
     else
       nnoremap <Leader>t :<C-U>CtrlP<CR>

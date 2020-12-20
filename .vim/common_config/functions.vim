@@ -24,7 +24,7 @@ function! s:GetVisualSelection()
   return join(lines, "\n")
 endfunction
 
-autocmd FileType python noremap <Leader>r :<C-U>exec '!python -c' shellescape(<SID>GetVisualSelection(), 1)<CR>
+autocmd FileType python noremap <Leader>R :<C-U>exec '!python -c' shellescape(<SID>GetVisualSelection(), 1)<CR>
 
 
 " Go to django related file

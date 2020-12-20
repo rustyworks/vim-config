@@ -254,6 +254,23 @@
   " Conflict with semshi, need to be 0
   let g:python_highlight_all = 1
 
+" Python Jedi"
+  if has('python3')  " Disable jedi if vim not compiled with python3
+    Bundle 'davidhalter/jedi-vim'
+
+    let g:jedi#auto_initialization = 1
+
+    let g:jedi#goto_command = "<leader>f"
+    let g:jedi#goto_assignments_command = ""
+    let g:jedi#goto_stubs_command = ""
+    let g:jedi#goto_definitions_command = ""
+    let g:jedi#documentation_command = "K"
+    let g:jedi#usages_command = "<leader>n"
+    let g:jedi#completions_command = "<C-Space>"
+    let g:jedi#rename_command = "<leader>r"  " Refactor
+    let g:jedi#completions_enabled = 0  " Ensure not clash with supertab
+  end
+
 " Easy async RSpec running
   Bundle 'thoughtbot/vim-rspec'
   Bundle "tpope/vim-dispatch.git"

@@ -65,15 +65,8 @@
 " show status line
   set laststatus=2
 
-" augment status line
-  function! ETry(function, ...)
-    if exists('*'.a:function)
-      return call(a:function, a:000)
-    else
-      return ''
-    endif
-  endfunction
-  set statusline=[%n]\ %<%.99f\ %h%w%m%r%{ETry('CapsLockStatusline')}%y%{ETry('rails#statusline')}%{ETry('fugitive#statusline')}%#ErrorMsg#%*%=%-16(\ %l,%c-%v\ %)%P
+" This userful if you use 'find' command
+  set path+=**
 
 " When lines are cropped at the screen bottom, show as much as possible
   set display=lastline
@@ -101,6 +94,19 @@
 " allow lots of tabs
   set tabpagemax=20
 
+" Enable cursor line position tracking:
+  set cursorline
+
+" augment status line
+  function! ETry(function, ...)
+    if exists('*'.a:function)
+      return call(a:function, a:000)
+    else
+      return ''
+    endif
+  endfunction
+  set statusline=[%n]\ %<%.99f\ %h%w%m%r%{ETry('CapsLockStatusline')}%y%{ETry('rails#statusline')}%{ETry('fugitive#statusline')}%#ErrorMsg#%*%=%-16(\ %l,%c-%v\ %)%P
+
 " remember last position in file
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
@@ -110,14 +116,18 @@
 " JSON is JS
   au BufNewFile,BufRead *.json set ai filetype=javascript
 
-" Enable cursor line position tracking:
-  set cursorline
+" Ensure the file is reloading the latest file in vim
+  au FocusGained,BufEnter * :checktime
+
+" for git, add spell checking and automatic wrapping at 72 columns
+  au Filetype gitcommit setlocal spell textwidth=72
+
 " Remove the underline from enabling cursorline:
-  au VimEnter,WinEnter,BufWinEnter * hi clear CursorLine
+  " au VimEnter,WinEnter,BufWinEnter * hi clear CursorLine
 " Set line numbering to red background:
   " au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=red
 " Set line numbering to black background for solarized:
-  au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=0
+  " au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=0
 
 " " CursorLine and CursorColumn autocommand
 " augroup CursorLine

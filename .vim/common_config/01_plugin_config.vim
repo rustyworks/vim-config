@@ -20,10 +20,13 @@
   Bundle "rustyworks/ruby-matchit.git"
   Bundle "tpope/vim-abolish.git"
   Bundle "terryma/vim-multiple-cursors"
-  Bundle "dracula/vim", { "name": "dracula" }
   " Bundle "Valloric/YouCompleteMe"
 
- " Vim airline configs
+" Default style for dracula
+  Bundle "dracula/vim", { "name": "dracula" }
+  let g:dracula_italic = 0
+
+" Vim airline configs
   Bundle 'vim-airline/vim-airline.git'
   let g:airline_powerline_fonts = 1
   let g:airline_mode_map = {

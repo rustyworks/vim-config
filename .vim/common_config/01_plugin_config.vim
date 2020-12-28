@@ -271,6 +271,9 @@
     let g:jedi#completions_enabled = 0  " Ensure not clash with supertab
   end
 
+" Python nice indentation after parentheses
+  Bundle "Vimjas/vim-python-pep8-indent"
+
 " Easy async RSpec running
   Bundle 'thoughtbot/vim-rspec'
   Bundle "tpope/vim-dispatch.git"

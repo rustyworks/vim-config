@@ -227,7 +227,7 @@ call s:AddITags(s:indent_tags, [
     \ 'form', 'frameset', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'html',
     \ 'i', 'iframe', 'ins', 'kbd', 'label', 'legend', 'li',
     \ 'map', 'menu', 'noframes', 'noscript', 'object', 'ol',
-    \ 'optgroup', 'q', 's', 'samp', 'select', 'small', 'span', 'strong', 'sub',
+    \ 'optgroup', 'p', 'q', 's', 'samp', 'select', 'small', 'span', 'strong', 'sub',
     \ 'sup', 'table', 'textarea', 'title', 'tt', 'u', 'ul', 'var', 'th', 'td',
     \ 'tr', 'tbody', 'tfoot', 'thead'])
 

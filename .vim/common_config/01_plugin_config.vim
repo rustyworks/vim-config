@@ -285,3 +285,9 @@
   nmap <Leader>rn :wa<CR> :call RunNearestSpec()<CR>
   nmap <Leader>rl :wa<CR> :call RunLastSpec()<CR>
   nmap <Leader>ra :wa<CR> :call RunAllSpecs()<CR>
+
+" Emmet for zen html
+  Bundle "mattn/emmet-vim"
+  " Remove the trailing comma. Default is comma
+  let g:user_emmet_expandabbr_key = '<C-y>'
+  " let g:user_emmet_expandabbr_key = '<Leader>y'

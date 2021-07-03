@@ -20,6 +20,7 @@
   Bundle "rustyworks/ruby-matchit.git"
   Bundle "tpope/vim-abolish.git"
   Bundle "terryma/vim-multiple-cursors"
+  Bundle "jiangmiao/auto-pairs"
   " Bundle "Valloric/YouCompleteMe"
 
 " Default style for dracula
@@ -272,6 +273,10 @@
     let g:jedi#completions_command = "<C-Space>"
     let g:jedi#rename_command = "<leader>r"  " Refactor
     let g:jedi#completions_enabled = 0  " Ensure not clash with supertab
+    " Show call signatures default value is : 1
+    " Can be problem when insert colon when buffer shown
+    " For the example is for i in range(10):
+    let g:jedi#show_call_signatures = "0"
   end
 
 " Python nice indentation after parentheses

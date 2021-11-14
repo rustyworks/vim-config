@@ -60,3 +60,8 @@ fun SetAppDir()
     endif
 endfun
 autocmd BufEnter *.py call SetAppDir()
+
+function! <SID>CopyCurrentFilePath()
+  let @+=@%
+endfunction
+command! CopyCurrentFilePath call <SID>CopyCurrentFilePath()

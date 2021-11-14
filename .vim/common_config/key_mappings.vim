@@ -90,3 +90,6 @@
 
 " change directory to current openfile
   nnoremap <leader>cd :cd %:p:h<CR>
+
+" get curent filepath
+  map <Leader>r :CopyCurrentFilePath<cr>

@@ -14,6 +14,7 @@
   Bundle "tpope/vim-repeat.git"
   Bundle "vim-ruby/vim-ruby.git"
   Bundle "leafgarland/typescript-vim"
+  Bundle "maxmellon/vim-jsx-pretty"
   Bundle "peitalin/vim-jsx-typescript"
   Bundle "vim-scripts/L9.git"
   Bundle "vim-scripts/matchit.zip"

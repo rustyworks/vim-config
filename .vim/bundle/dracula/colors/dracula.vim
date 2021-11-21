@@ -81,8 +81,12 @@ if !exists('g:dracula_underline')
   let g:dracula_underline = 1
 endif
 
-if !exists('g:dracula_undercurl') && g:dracula_underline != 0
-  let g:dracula_undercurl = 1
+if !exists('g:dracula_undercurl')
+  let g:dracula_undercurl = g:dracula_underline
+endif
+
+if !exists('g:dracula_full_special_attrs_support')
+  let g:dracula_full_special_attrs_support = has('gui_running')
 endif
 
 if !exists('g:dracula_inverse')
@@ -111,10 +115,15 @@ function! s:h(scope, fg, ...) " bg, attr_list, special
   let l:attr_list = filter(get(a:, 2, ['NONE']), 'type(v:val) == 1')
   let l:attrs = len(l:attr_list) > 0 ? join(l:attr_list, ',') : 'NONE'
 
-  " Falls back to coloring foreground group on terminals because
-  " nearly all do not support undercurl
+  " If the UI does not have full support for special attributes (like underline and
+  " undercurl) and the highlight does not explicitly set the foreground color,
+  " make the foreground the same as the attribute color to ensure the user will
+  " get some highlight if the attribute is not supported. The default behavior
+  " is to assume that terminals do not have full support, but the user can set
+  " the global variable `g:dracula_full_special_attrs_support` explicitly if the
+  " default behavior is not desirable.
   let l:special = get(a:, 3, ['NONE', 'NONE'])
-  if l:special[0] !=# 'NONE' && l:fg[0] ==# 'NONE' && !has('gui_running')
+  if l:special[0] !=# 'NONE' && l:fg[0] ==# 'NONE' && !g:dracula_full_special_attrs_support
     let l:fg[0] = l:special[0]
     let l:fg[1] = l:special[1]
   endif
@@ -221,7 +230,7 @@ hi! link ErrorMsg     DraculaRedInverse
 hi! link FoldColumn   DraculaSubtle
 hi! link Folded       DraculaBoundary
 hi! link IncSearch    DraculaOrangeInverse
-hi! link LineNr       DraculaComment
+call s:h('LineNr', s:comment)
 hi! link MoreMsg      DraculaFgBold
 hi! link NonText      DraculaSubtle
 hi! link Pmenu        DraculaBgDark
@@ -230,9 +239,9 @@ hi! link PmenuSel     DraculaSelection
 hi! link PmenuThumb   DraculaSelection
 hi! link Question     DraculaFgBold
 hi! link Search       DraculaSearch
-hi! link SignColumn   DraculaComment
+call s:h('SignColumn', s:comment)
 hi! link TabLine      DraculaBoundary
-hi! link TabLineFill  DraculaBgDarker
+hi! link TabLineFill  DraculaBgDark
 hi! link TabLineSel   Normal
 hi! link Title        DraculaGreenBold
 hi! link VertSplit    DraculaBoundary
@@ -250,8 +259,19 @@ call s:h('Conceal', s:cyan, s:none)
 " Neovim uses SpecialKey for escape characters only. Vim uses it for that, plus whitespace.
 if has('nvim')
   hi! link SpecialKey DraculaRed
+  hi! link LspReferenceText DraculaSelection
+  hi! link LspReferenceRead DraculaSelection
+  hi! link LspReferenceWrite DraculaSelection
+  hi! link LspDiagnosticsDefaultInformation DraculaCyan
+  hi! link LspDiagnosticsDefaultHint DraculaCyan
+  hi! link LspDiagnosticsDefaultError DraculaError
+  hi! link LspDiagnosticsDefaultWarning DraculaOrange
+  hi! link LspDiagnosticsUnderlineError DraculaErrorLine
+  hi! link LspDiagnosticsUnderlineHint DraculaInfoLine
+  hi! link LspDiagnosticsUnderlineInformation DraculaInfoLine
+  hi! link LspDiagnosticsUnderlineWarning DraculaWarnLine
 else
-  hi! link SpecialKey DraculaSubtle
+  hi! link SpecialKey DraculaPink
 endif
 
 hi! link Comment DraculaComment
@@ -305,4 +325,4 @@ hi! link helpBacktick Special
 
 "}}}
 
-" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0:
+" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0 et:

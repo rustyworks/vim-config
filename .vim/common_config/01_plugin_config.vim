@@ -297,3 +297,7 @@
   " Remove the trailing comma. Default is comma
   let g:user_emmet_expandabbr_key = '<C-y>'
   " let g:user_emmet_expandabbr_key = '<Leader>y'
+
+" Vertical Indentation Bar
+  Bundle "Yggdroot/indentLine"
+  let g:indentLine_enabled = 1

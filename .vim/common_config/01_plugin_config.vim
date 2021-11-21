@@ -22,7 +22,7 @@
   Bundle "tpope/vim-abolish.git"
   Bundle "terryma/vim-multiple-cursors"
   Bundle "jiangmiao/auto-pairs"
-  " Bundle "Valloric/YouCompleteMe"
+  Bundle "Vimjas/vim-python-pep8-indent"
 
 " Default style for dracula
   Bundle "dracula/vim", { "name": "dracula" }
@@ -264,45 +264,21 @@
   " Conflict with semshi, need to be 0
   let g:python_highlight_all = 1
 
-" Python Jedi"
-  if has('python3')  " Disable jedi if vim not compiled with python3
-    Bundle 'davidhalter/jedi-vim'
-
-    let g:jedi#auto_initialization = 1
-
-    let g:jedi#goto_command = "<leader>f"
-    let g:jedi#goto_assignments_command = ""
-    let g:jedi#goto_stubs_command = ""
-    let g:jedi#goto_definitions_command = ""
-    let g:jedi#documentation_command = "K"
-    let g:jedi#usages_command = "<leader>n"
-    let g:jedi#completions_command = "<C-Space>"
-    let g:jedi#rename_command = "<leader>r"  " Refactor
-    let g:jedi#completions_enabled = 0  " Ensure not clash with supertab
-    " Show call signatures default value is : 1
-    " Can be problem when insert colon when buffer shown
-    " For the example is for i in range(10):
-    let g:jedi#show_call_signatures = "0"
-  end
-
-" Python nice indentation after parentheses
-  Bundle "Vimjas/vim-python-pep8-indent"
-
 " Easy async RSpec running
   Bundle 'thoughtbot/vim-rspec'
   Bundle "tpope/vim-dispatch.git"
-  let g:rspec_command = "Dispatch rspec --format=progress --no-profile {spec}"
-  nmap <Leader>rc :wa<CR> :call RunCurrentSpecFile()<CR>
-  nmap <Leader>rn :wa<CR> :call RunNearestSpec()<CR>
-  nmap <Leader>rl :wa<CR> :call RunLastSpec()<CR>
-  nmap <Leader>ra :wa<CR> :call RunAllSpecs()<CR>
+    let g:rspec_command = "Dispatch rspec --format=progress --no-profile {spec}"
+    nmap <Leader>rc :wa<CR> :call RunCurrentSpecFile()<CR>
+    nmap <Leader>rn :wa<CR> :call RunNearestSpec()<CR>
+    nmap <Leader>rl :wa<CR> :call RunLastSpec()<CR>
+    nmap <Leader>ra :wa<CR> :call RunAllSpecs()<CR>
 
 " Emmet for zen html
   Bundle "mattn/emmet-vim"
-  " Remove the trailing comma. Default is comma
-  let g:user_emmet_expandabbr_key = '<C-y>'
-  " let g:user_emmet_expandabbr_key = '<Leader>y'
+    " Remove the trailing comma. Default is comma
+    let g:user_emmet_expandabbr_key = '<C-y>'
+    " let g:user_emmet_expandabbr_key = '<Leader>y'
 
 " Vertical Indentation Bar
   Bundle "Yggdroot/indentLine"
-  let g:indentLine_enabled = 1
+    let g:indentLine_enabled = 1

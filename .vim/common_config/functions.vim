@@ -43,6 +43,7 @@ fun! RelatedFile(file)
     return ''
 endfun
 
+
 function! <SID>SwapBackground()
   if (&background ==# "light")
     set background=dark
@@ -61,7 +62,51 @@ fun SetAppDir()
 endfun
 autocmd BufEnter *.py call SetAppDir()
 
+
 function! <SID>CopyCurrentFilePath()
   let @+=@%
 endfunction
 command! CopyCurrentFilePath call <SID>CopyCurrentFilePath()
+
+
+function! <SID>AlwaysMiddleEnable()
+  "keep cursor in the middle all the time :)
+    nnoremap k kzz
+    nnoremap j jzz
+    nnoremap p pzz
+    nnoremap P Pzz
+    nnoremap G Gzz
+    nnoremap x xzz
+    inoremap <ESC> <ESC>zz
+    nnoremap <ENTER> <ENTER>zz
+    inoremap <ENTER> <ENTER><ESC>zzi
+    nnoremap o o<ESC>zza
+    nnoremap O O<ESC>zza
+    nnoremap a a<ESC>zza
+endfunction
+command! AlwaysMiddleEnable call <SID>AlwaysMiddleEnable()
+
+function! <SID>DisableAlwaysMiddle()
+  "keep cursor in the middle all the time :)
+    nnoremap k k
+    nnoremap j j
+    nnoremap p p
+    nnoremap P P
+    nnoremap G G
+    nnoremap x x
+    inoremap <ESC> <ESC>
+    nnoremap <ENTER> <ENTER>
+    inoremap <ENTER> <ENTER>
+    nnoremap o o
+    nnoremap O O
+    nnoremap a a
+endfunction
+command! AlwaysMiddleDisable call <SID>AlwaysMiddleDisable()
+
+
+function! <SID>BadApple()
+  exec 'edit ~/.vim/bundle/bad-apple/plugin/badapple.vim'
+  set autochdir
+  exec 'source ~/.vim/bundle/bad-apple/plugin/badapple.vim'
+endfunction
+command! BadApple call <SID>BadApple()

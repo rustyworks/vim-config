@@ -1,9 +1,11 @@
 set rtp+=~/.vim/bundle/Vundle.vim/
-set rtp+=~/.fzf
-" set rtp+=/usr/bin/fzf
 
+" FZF
 " Use this when you use apt
 " source /usr/share/doc/fzf/examples/fzf.vim
+" set rtp+=/usr/bin/fzf
+" Else
+set rtp+=~/.fzf
 
 runtime! custom_preconfig/*.vim
 runtime! common_config/*.vim

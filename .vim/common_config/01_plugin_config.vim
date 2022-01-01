@@ -3,25 +3,25 @@
  call vundle#rc()
 
 " Plugins requiring no additional configuration or keymaps
+  Bundle "jiangmiao/auto-pairs"
+  Bundle "leafgarland/typescript-vim"
+  Bundle "maxmellon/vim-jsx-pretty"
   Bundle "michaeljsmith/vim-indent-object.git"
   Bundle "oscarh/vimerl.git"
   Bundle "pangloss/vim-javascript.git"
+  Bundle "peitalin/vim-jsx-typescript"
+  Bundle "rustyworks/ruby-matchit.git"
+  Bundle "terryma/vim-multiple-cursors"
   Bundle "tomtom/tcomment_vim.git"
+  Bundle "tpope/vim-abolish.git"
   Bundle "tpope/vim-endwise.git"
   Bundle "tpope/vim-fugitive.git"
   Bundle "tpope/vim-haml.git"
   Bundle "tpope/vim-rake.git"
   Bundle "tpope/vim-repeat.git"
   Bundle "vim-ruby/vim-ruby.git"
-  Bundle "leafgarland/typescript-vim"
-  Bundle "maxmellon/vim-jsx-pretty"
-  Bundle "peitalin/vim-jsx-typescript"
   Bundle "vim-scripts/L9.git"
   Bundle "vim-scripts/matchit.zip"
-  Bundle "rustyworks/ruby-matchit.git"
-  Bundle "tpope/vim-abolish.git"
-  Bundle "terryma/vim-multiple-cursors"
-  Bundle "jiangmiao/auto-pairs"
   Bundle "Vimjas/vim-python-pep8-indent"
 
 " Default style for dracula

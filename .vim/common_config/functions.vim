@@ -103,6 +103,18 @@ function! <SID>DisableAlwaysMiddle()
 endfunction
 command! AlwaysMiddleDisable call <SID>AlwaysMiddleDisable()
 
+function! <SID>ToggleFoldByIndent()
+  if (&foldmethod ==# "manual")
+    set foldmethod=indent
+    set foldnestmax=2
+    set foldlevel=1
+  elseif (&foldmethod ==# "indent")
+    set foldmethod=manual
+    set foldnestmax=20
+    call feedkeys("zR<cr>")
+  end
+endfunction
+command! ToggleFoldByIndent call <SID>ToggleFoldByIndent()
 
 function! <SID>BadApple()
   exec 'edit ~/.vim/bundle/bad-apple/plugin/badapple.vim'

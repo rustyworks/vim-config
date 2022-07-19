@@ -122,6 +122,10 @@
 " for git, add spell checking and automatic wrapping at 72 columns
   au Filetype gitcommit setlocal spell textwidth=72
 
+" detect HtmlDjango and JSX
+  au BufNewFile,BufRead *.html set filetype=htmldjango
+  au BufNewFile,BufRead *.jsx set filetype=javascript
+
 " Remove the underline from enabling cursorline:
   " au VimEnter,WinEnter,BufWinEnter * hi clear CursorLine
 " Set line numbering to red background:

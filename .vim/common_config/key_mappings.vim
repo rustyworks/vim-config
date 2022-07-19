@@ -93,3 +93,6 @@
 
 " get curent filepath
   map <Leader>r :CopyCurrentFilePath<cr>
+
+" fold based on indent for ruby and python
+  nmap z0 :ToggleFoldByIndent<cr>

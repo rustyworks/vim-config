@@ -47,8 +47,11 @@ endfun
 function! <SID>SwapBackground()
   if (&background ==# "light")
     set background=dark
+    colorscheme dracula
   else
+    set t_Co=256
     set background=light
+    colorscheme PaperColor
   endif
 endfunction
 command! SwapBackground call <SID>SwapBackground()

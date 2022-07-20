@@ -24,9 +24,13 @@
   Bundle "vim-scripts/matchit.zip"
   Bundle "Vimjas/vim-python-pep8-indent"
 
-" Default style for dracula
+" Bundle for colorscheme
+  Bundle 'NLKNguyen/papercolor-theme'
   Bundle "dracula/vim", { "name": "dracula" }
+  " Default style for dracula
   let g:dracula_italic = 0
+
+
 
 " Vim airline configs
   Bundle 'vim-airline/vim-airline.git'

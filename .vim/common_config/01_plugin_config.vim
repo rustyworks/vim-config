@@ -131,6 +131,8 @@
     let g:tagbar_autofocus = 1
     map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
     map <Leader>. :TagbarToggle<CR>
+    " to prevent sorting by alphabetically
+    let g:tagbar_sort = 0
 
 " Markdown syntax highlighting
   Bundle "tpope/vim-markdown.git"

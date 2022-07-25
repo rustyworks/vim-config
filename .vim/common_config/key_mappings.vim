@@ -94,5 +94,8 @@
 " get curent filepath
   map <Leader>r :CopyCurrentFilePath<cr>
 
+" toggle spell checker
+  nmap <Leader>s :set spell!<cr>
+
 " fold based on indent for ruby and python
   nmap z0 :ToggleFoldByIndent<cr>

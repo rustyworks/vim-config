@@ -83,13 +83,23 @@
 " FZF
   Bundle "junegunn/fzf.vim.git"
   " use fzf if FZF present, else CtrlP
+
     if executable("fzf")
+      " Use this when you use apt
+      source /usr/share/doc/fzf/examples/fzf.vim
+      set rtp+=/usr/bin/fzf
+
+      " Use this if you clone
+      " set rtp+=~/.fzf
+
       " Docking to bottom instead of floating on neovim
-      let g:fzf_layout = { 'down': '~40%' }
+      let g:fzf_layout = { 'down': '~30%' }
+
       if executable("ag")
         " Respect .gitignore file with dependency 'ag'
         let $FZF_DEFAULT_COMMAND = 'ag -g ""'
       endif
+
       nnoremap <Leader>t :<C-U>FZF<CR>
     else
       nnoremap <Leader>t :<C-U>CtrlP<CR>

@@ -27,6 +27,7 @@
 " Bundle for colorscheme
   Bundle 'NLKNguyen/papercolor-theme'
   Bundle "dracula/vim", { "name": "dracula" }
+  Bundle "sainnhe/everforest"
   " Default style for dracula
   let g:dracula_italic = 0
 

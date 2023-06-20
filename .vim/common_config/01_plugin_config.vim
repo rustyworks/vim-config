@@ -302,7 +302,7 @@
 
 " Vertical Indentation Bar
   Bundle "Yggdroot/indentLine"
-    let g:indentLine_enabled = 1
+    let g:indentLine_enabled = 0
 
     " To ensure json are concealed
     let g:vim_json_syntax_conceal = 0

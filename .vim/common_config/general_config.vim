@@ -97,6 +97,9 @@
 " Enable cursor line position tracking:
   set cursorline
 
+" Enable cursor column position tracking:
+  set cursorcolumn
+
 " augment status line
   function! ETry(function, ...)
     if exists('*'.a:function)

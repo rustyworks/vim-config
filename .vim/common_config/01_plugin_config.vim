@@ -87,7 +87,7 @@
 
     if executable("fzf")
       " Use this when you use apt
-      source /usr/share/doc/fzf/examples/fzf.vim
+      " source /usr/share/doc/fzf/examples/fzf.vim
       set rtp+=/usr/bin/fzf
 
       " Use this if you clone

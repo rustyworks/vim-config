@@ -2,7 +2,7 @@
 
 1. `git clone https://github.com/rustyworks/vim-config.git`
 2. `cd vim-config`
-3. `./link.sh` for neovim user or `./link_vim_only.sh` for vim user
+3. `./link_vim_only.sh` for vim user
 
 ## Reinstall plugin
 

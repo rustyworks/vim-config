@@ -3,10 +3,13 @@
  call vundle#rc()
 
 " Plugins requiring no additional configuration or keymaps
-  Bundle "jiangmiao/auto-pairs"
   Bundle "terryma/vim-multiple-cursors"
   Bundle "tomtom/tcomment_vim.git"
   Bundle "tpope/vim-fugitive.git"
+
+" Set autopair only on braces. Exclude all quotes.
+  Bundle "jiangmiao/auto-pairs"
+  let g:AutoPairs = {'(':')', '[':']', '{':'}'}
 
 "Supertab code completion"
   Bundle "ervandew/supertab.git"

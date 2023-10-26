@@ -7,6 +7,9 @@
 " default color scheme
   set t_Co=256
 
+" Remove bold
+  set t_md=
+
 " don't wrap long lines
   set nowrap
 

@@ -2,28 +2,8 @@
   nmap <Leader>w :set wrap!<cr>
   nmap <Leader>W :set nowrap<cr>
 
-" swap background light and dark
-  nmap <Leader>x :SwapBackground<cr>
-
-" close all other windows (in the current tab)
-  nmap gW :only<cr>
-
 " go to the alternate file (previous buffer) with g-enter
   nmap g 
-
-" shortcuts for frequenly used files
-" Rails
-  nmap gs :e db/schema.rb<cr>
-  nmap gr :e config/routes.rb<cr>
-  " nmap gm :e Gemfile<cr> "Colided with django, let me thing what should I do
-" Django
-  nmap gm :call RelatedFile ("models.py")<cr>
-  nmap gv :call RelatedFile ("views.py")<cr>
-  nmap gu :call RelatedFile ("urls.py")<cr>
-  nmap ga :call RelatedFile ("admin.py")<cr>
-  " nmap gt :call RelatedFile ("tests.py")<cr> " Conflict with change tab
-  " shortcut
-  nmap gs :find settings.py<cr>
 
 " insert blank lines without going into insert mode
   nmap go o<esc>
@@ -46,9 +26,6 @@
   noremap <Leader>8 8gt
   noremap <Leader>9 9gt
   noremap <Leader>0 :tablast<cr>
-
-" mapping previous file instead previous cursor goto
-  " nmap <C-O> <C-^>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
   nnoremap Y y$
@@ -81,10 +58,6 @@
 " Command mode: Ctrl-P
   cmap <C-S-P> <C-R>=expand("%:p:h") . "/" <cr>
 
-" make `jj` and `jk` throw you into normal mode
-  " inoremap jj <esc>
-  " inoremap jk <esc>
-
 " disable left-click to prevent accidentally click when using touchpad
   map <LeftMouse> <Nop>
 
@@ -96,6 +69,3 @@
 
 " toggle spell checker
   nmap <Leader>s :set spell!<cr>
-
-" fold based on indent for ruby and python
-  nmap z0 :ToggleFoldByIndent<cr>

@@ -97,19 +97,6 @@
 " Enable cursor line position tracking:
   set cursorline
 
-" Enable cursor column position tracking:
-  set cursorcolumn
-
-" augment status line
-  function! ETry(function, ...)
-    if exists('*'.a:function)
-      return call(a:function, a:000)
-    else
-      return ''
-    endif
-  endfunction
-  set statusline=[%n]\ %<%.99f\ %h%w%m%r%{ETry('CapsLockStatusline')}%y%{ETry('rails#statusline')}%{ETry('fugitive#statusline')}%#ErrorMsg#%*%=%-16(\ %l,%c-%v\ %)%P
-
 " remember last position in file
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
@@ -121,27 +108,3 @@
 
 " for git, add spell checking and automatic wrapping at 72 columns
   au Filetype gitcommit setlocal spell textwidth=72
-
-" detect HtmlDjango and JSX
-  au BufNewFile,BufRead *.html set filetype=htmldjango
-  au BufNewFile,BufRead *.jsx set filetype=javascript
-
-" Remove the underline from enabling cursorline:
-  " au VimEnter,WinEnter,BufWinEnter * hi clear CursorLine
-" Set line numbering to red background:
-  " au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=red
-" Set line numbering to black background for solarized:
-  " au VimEnter,WinEnter,BufWinEnter * hi CursorLineNR ctermbg=0
-
-" " CursorLine and CursorColumn autocommand
-" augroup CursorLine
-"   au!
-"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"   au VimLeave * setlocal nocursorline
-" augroup END
-
-" augroup CursorColumn
-"   au!
-"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
-"   au VimLeave,WinLeave * setlocal nocursorcolumn
-" augroup END

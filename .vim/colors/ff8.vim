@@ -1,6 +1,6 @@
 " Colors used
-" #616060  " dark grey
 " #404040  " very dark grey (almost black)
+" #616060  " dark grey
 " #8f8f8f  " light grey
 " #f8f8f8  " very light grey (almost white)
 " #ff8ff8  " penk
@@ -50,7 +50,7 @@ hi IncSearch       guifg=#616060    guibg=#ff8ff8    gui=NONE
 " - Prompt/Status -
 " -----------------
 hi StatusLine      guifg=#ff8ff8    guibg=#616060    gui=NONE
-hi StatusLineNC    guifg=#616060    guibg=#616060    gui=NONE
+hi StatusLineNC    guifg=#f8f8f8    guibg=#616060    gui=NONE
 hi WildMenu        guifg=#ff8ff8    guibg=#616060    gui=NONE
 hi Question        guifg=#404040    guibg=#616060    gui=NONE
 hi Title           guifg=#f8f8f8    guibg=#616060    gui=NONE

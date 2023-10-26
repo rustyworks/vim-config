@@ -18,9 +18,9 @@ let g:colors_name="ff8"
 " --------------------------------
 hi Normal          guifg=#f8f8f8    guibg=#616060    gui=NONE
 hi Cursor          guifg=#8f8f8f    guibg=#616060    gui=NONE
-hi CursorLine      guifg=#404040    guibg=#8f8f8f    gui=NONE
+hi CursorLine      guifg=#404040    guibg=#8f8f8f    gui=NONE    cterm=NONE
 hi LineNr          guifg=#f8f8f8    guibg=#616060    gui=NONE
-hi CursorLineNR    guifg=#ff8ff8    guibg=#616060    gui=NONE
+hi CursorLineNR    guifg=#ff8ff8    guibg=#616060    gui=NONE    cterm=NONE
 
 " -----------------
 " - Number column -
@@ -37,7 +37,7 @@ hi VertSplit       guifg=#f8f8f8    guibg=#616060    gui=NONE
 hi ColorColumn     guifg=#f8f8f8    guibg=#616060    gui=NONE
 hi TabLine         guifg=#404040    guibg=#616060    gui=NONE
 hi TabLineFill     guifg=#404040    guibg=#616060    gui=NONE
-hi TabLineSel      guifg=#404040    guibg=#616060    gui=NONE
+hi TabLineSel      guifg=#f8f8f8    guibg=#616060    gui=NONE
 
 " -------------------------------
 " - File Navigation / Searching -

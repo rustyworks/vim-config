@@ -34,10 +34,10 @@ hi Folded          guifg=#404040    guibg=#616060    gui=NONE
 " - Window/Tab delimiters -
 " -------------------------
 hi VertSplit       guifg=#f8f8f8    guibg=#616060    gui=NONE
-hi ColorColumn     guifg=#f8f8f8    guibg=#616060    gui=NONE
-hi TabLine         guifg=#404040    guibg=#616060    gui=NONE
+hi ColorColumn     guifg=#ff8ff8    guibg=#616060    gui=NONE
+hi TabLine         guifg=#616060    guibg=#f8f8f8    gui=NONE
 hi TabLineFill     guifg=#404040    guibg=#616060    gui=NONE
-hi TabLineSel      guifg=#f8f8f8    guibg=#616060    gui=NONE
+hi TabLineSel      guifg=#f8f8f8    guibg=#ff8ff8    gui=NONE
 
 " -------------------------------
 " - File Navigation / Searching -
@@ -49,11 +49,11 @@ hi IncSearch       guifg=#616060    guibg=#ff8ff8    gui=NONE
 " -----------------
 " - Prompt/Status -
 " -----------------
-hi StatusLine      guifg=#ff8ff8    guibg=#616060    gui=NONE
+hi StatusLine      guifg=#ff8ff8    guibg=#f8f8f8    gui=NONE
 hi StatusLineNC    guifg=#f8f8f8    guibg=#616060    gui=NONE
 hi WildMenu        guifg=#ff8ff8    guibg=#616060    gui=NONE
 hi Question        guifg=#404040    guibg=#616060    gui=NONE
-hi Title           guifg=#f8f8f8    guibg=#616060    gui=NONE
+" hi Title           guifg=#f8f8f8    guibg=#ff8ff8    gui=NONE
 hi ModeMsg         guifg=#404040    guibg=#616060    gui=NONE
 hi MoreMsg         guifg=#ff8ff8    guibg=#616060    gui=NONE
 
